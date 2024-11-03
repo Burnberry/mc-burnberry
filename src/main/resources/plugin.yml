@@ -1,0 +1,4 @@
+name: burnberry
+version: '${project.version}'
+main: noppe.minecraft.burnberry.Burnberry
+api-version: '1.21'
