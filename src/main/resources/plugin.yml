@@ -2,3 +2,14 @@ name: burnberry
 version: '${project.version}'
 main: noppe.minecraft.burnberry.Burnberry
 api-version: '1.21'
+
+commands:
+  template:
+    description: Template command
+    usage: /<command>
+    permission: burnberry.base
+
+  test:
+    description: Test command
+    usage: /<command> <value>
+    permission: burnberry.dev
