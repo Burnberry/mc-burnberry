@@ -1,27 +1,22 @@
 package noppe.minecraft.burnberry.view.views;
 
-import noppe.minecraft.burnberry.entities.CustomPlayer;
+import noppe.minecraft.burnberry.event.events.EventInventoryClick;
 import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.item.Menu;
-import noppe.minecraft.burnberry.view.MenuElement;
+import noppe.minecraft.burnberry.resourcegame.ResourceGame;
 import noppe.minecraft.burnberry.view.View;
-import noppe.minecraft.burnberry.view.menuelements.MenuElementLeft;
-import noppe.minecraft.burnberry.view.menuelements.MenuElementRight;
 import org.bukkit.Bukkit;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.DoubleChestInventory;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class ResourceView extends View {
-    MenuElement left;
-    MenuElement right;
+    ResourceGame game;
 
-    public ResourceView(CustomPlayer player) {
-        super(player);
-        left = new MenuElementLeft();
+    public ResourceView(ResourceGame game) {
+        super(game.player);
+        this.game = game;
         menuElements.add(left);
-        right = new MenuElementRight();
         menuElements.add(right);
         reload();
     }
@@ -44,5 +39,10 @@ public class ResourceView extends View {
         ItemStack pageItem = Menu.black.clone();
         M.setItemName(pageItem, ""+page);
         return pageItem;
+    }
+
+    @Override
+    public void onInventoryClickHook(InventoryClickEvent event, EventInventoryClick ev) {
+        game.onInventoryClick(event, ev);
     }
 }

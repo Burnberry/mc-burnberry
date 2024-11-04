@@ -5,6 +5,7 @@ import noppe.minecraft.burnberry.event.events.EventInventoryClick;
 import noppe.minecraft.burnberry.event.events.EventPlayerInteract;
 import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.item.Menu;
+import noppe.minecraft.burnberry.resourcegame.ResourceGame;
 import noppe.minecraft.burnberry.view.View;
 import noppe.minecraft.burnberry.view.views.ResourceView;
 import org.bukkit.Location;
@@ -22,10 +23,13 @@ public class CustomPlayer extends CustomEntity{
     public View view;
     private final int menuUseCooldown = 10;
     public int lastMenuUseTime = -menuUseCooldown;
+    public ResourceGame game;
 
     public CustomPlayer(CustomEventListener origin, Entity entity) {
         super(origin, entity);
         playerWrapped = (Player) entity;
+        game = new ResourceGame(this);
+        M.print(game.toString());
     }
 
     public void onTick(){
@@ -90,7 +94,9 @@ public class CustomPlayer extends CustomEntity{
     @Override
     public void onInventoryClick(InventoryClickEvent event, EventInventoryClick ev){
         if (this.view != null){
-            this.view.onInventoryClick(ev);
+            this.view.onInventoryClick(event, ev);
+        } else if (game != null) {
+            game.onInventoryClick(event, ev);
         }
     }
 
@@ -104,7 +110,7 @@ public class CustomPlayer extends CustomEntity{
     }
 
     public void setGameView(){
-        M.print("Open view");
-        new ResourceView(this);
+        M.print(game.toString());
+        game.reload();
     }
 }
