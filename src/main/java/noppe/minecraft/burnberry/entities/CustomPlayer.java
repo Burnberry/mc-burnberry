@@ -110,7 +110,6 @@ public class CustomPlayer extends CustomEntity{
     }
 
     public void setGameView(){
-        M.print(game.toString());
         game.reload();
     }
 }

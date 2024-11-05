@@ -1,1 +1,21 @@
 # mc-burnberry
+### plan
+- Resource game uses nodes class
+  - OnHit() + sound
+  - Chance of finding gems / ores
+  - itemChange
+  - isFinished()
+- Upgrades
+  - Minigame Main menu + view (in inventory?)
+  - Game vs player resources/upgrades
+  - resource view
+  - upgrade view
+- minigame on finish restart + escape button
+- minigame start by pressing tool (optional)
+- Woodchopping
+  - Really boring, how to make interesting?
+    - if not possible, make it the easiest to automate
+    - foraging/hunting instead and add extra things to do
+  - Tree with main health
+    - Hitting the tree drops leaves
+    - Leaves can turn into extra loot
