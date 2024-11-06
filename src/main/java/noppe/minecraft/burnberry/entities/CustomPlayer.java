@@ -29,7 +29,6 @@ public class CustomPlayer extends CustomEntity{
         super(origin, entity);
         playerWrapped = (Player) entity;
         game = new ResourceGame(this);
-        M.print(game.toString());
     }
 
     public void onTick(){

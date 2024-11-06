@@ -1,10 +1,5 @@
 # mc-burnberry
 ### plan
-- Resource game uses nodes class
-  - OnHit() + sound
-  - Chance of finding gems / ores
-  - itemChange
-  - isFinished()
 - Upgrades
   - Minigame Main menu + view (in inventory?)
   - Game vs player resources/upgrades
@@ -19,3 +14,9 @@
   - Tree with main health
     - Hitting the tree drops leaves
     - Leaves can turn into extra loot
+- mining 2
+  - random generation (research noise generation)
+  - random ore spawns
+- farming
+  - food grows with ticks
+  - food needed for minions

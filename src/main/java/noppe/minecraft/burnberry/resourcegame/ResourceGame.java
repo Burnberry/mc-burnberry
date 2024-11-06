@@ -3,6 +3,7 @@ package noppe.minecraft.burnberry.resourcegame;
 import noppe.minecraft.burnberry.entities.CustomPlayer;
 import noppe.minecraft.burnberry.event.CustomEventListener;
 import noppe.minecraft.burnberry.event.events.EventInventoryClick;
+import noppe.minecraft.burnberry.resourcegame.minigames.MiningGame;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class ResourceGame extends CustomEventListener {
