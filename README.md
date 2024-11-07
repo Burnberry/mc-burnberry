@@ -1,10 +1,6 @@
 # mc-burnberry
 ### plan
-- Upgrades
-  - Minigame Main menu + view (in inventory?)
-  - Game vs player resources/upgrades
-  -- resource view
-  - upgrade view
+- Minigame Main menu + view (in inventory?)
 - minigame on finish restart + escape button
 - minigame start by pressing tool (optional)
 - Woodchopping
