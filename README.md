@@ -3,7 +3,7 @@
 - Upgrades
   - Minigame Main menu + view (in inventory?)
   - Game vs player resources/upgrades
-  - resource view
+  -- resource view
   - upgrade view
 - minigame on finish restart + escape button
 - minigame start by pressing tool (optional)
@@ -20,3 +20,7 @@
 - farming
   - food grows with ticks
   - food needed for minions
+- smelting tech
+  - coal needed for smelting
+  - furnaces need to be built
+  - upgrades for blast furnace + smokers

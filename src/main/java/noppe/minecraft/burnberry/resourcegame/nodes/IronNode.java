@@ -8,11 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 
-public class StoneNode extends ResourceNode {
-    static ItemStack stone = new ItemStack(Material.STONE);
-    static ItemStack weakStone = new ItemStack(Material.COBBLESTONE);
-
-    public StoneNode(MiniGame game, int slot, int health){
+public class IronNode extends ResourceNode {
+    public IronNode(MiniGame game, int slot, int health) {
         super(game, slot, health);
     }
 
@@ -20,22 +17,16 @@ public class StoneNode extends ResourceNode {
     public void onHit(CustomPlayer player) {
         int damage = Math.min(health, game.game.upgrades.pickaxePower);
         health -= damage;
-        game.game.resources.get(Res.STONE).addAmount(damage);
         setItem(getItem());
         playSound(player, Sound.BLOCK_STONE_BREAK);
         if (isFinished()){
+            game.game.resources.get(Res.IRON).addAmount(1);
             remove();
         }
     }
 
     @Override
     public ItemStack getItem() {
-        if (health > 1){
-            return stone;
-        }
-        else if (health == 1){
-            return weakStone;
-        }
-        return null;
+        return new ItemStack(Material.IRON_ORE);
     }
 }

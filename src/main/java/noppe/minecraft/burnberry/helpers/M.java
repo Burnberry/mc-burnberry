@@ -14,6 +14,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.Arrays;
+
 public class M {
     public static Burnberry burnberry;
     public static NamespacedKey key;
@@ -80,6 +82,19 @@ public class M {
         assert meta != null;
         meta.setDisplayName(name);
         itemStack.setItemMeta(meta);
+    }
+
+    public static void setLore(ItemStack item, String[] lore){
+        ItemMeta itemMeta = item.getItemMeta();
+        assert itemMeta != null;
+        itemMeta.setLore(Arrays.asList(lore));
+        item.setItemMeta(itemMeta);
+    }
+
+    public static void setLore(ItemStack item, String lore){
+        String[] text = new String[1];
+        text[0] = lore;
+        setLore(item, text);
     }
 
     public static CustomEntity getWrapper(Entity entity){
