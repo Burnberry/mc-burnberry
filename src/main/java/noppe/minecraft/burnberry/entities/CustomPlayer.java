@@ -105,10 +105,19 @@ public class CustomPlayer extends CustomEntity{
             if (M.matches(Menu.startGame, ev.item)){
                 setGameView();
             }
+            else if (game != null){
+                if (M.matches(Menu.controlResources, ev.item)){
+                    game.viewResources();
+                } else if (M.matches(Menu.controlUpgrades, ev.item)){
+                    game.viewUpgrades();
+                } if (M.matches(Menu.controlMines, ev.item)){
+                    game.viewMines();
+                }
+            }
         }
     }
 
     public void setGameView(){
-        game.reload();
+        game.viewMainMenu();
     }
 }

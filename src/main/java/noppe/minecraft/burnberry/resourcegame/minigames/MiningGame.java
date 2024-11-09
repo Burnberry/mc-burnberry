@@ -16,9 +16,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MiningGame extends MiniGame {
-    public ItemStack cobble = new ItemStack(Material.COBBLESTONE);
-    public ItemStack stone = new ItemStack(Material.STONE);
-
     public MiningGame(ResourceGame game) {
         super(game, "Mines");
     }
@@ -39,5 +36,10 @@ public class MiningGame extends MiniGame {
         nodes.add(new StoneNode(this, slot-1, 1));
         nodes.add(new StoneNode(this, slot+9, 1));
         nodes.add(new StoneNode(this, slot-9, 1));
+    }
+
+    @Override
+    public void viewMinigame() {
+        game.viewMines();
     }
 }

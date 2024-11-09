@@ -11,6 +11,10 @@ public class Menu {
     public static ItemStack controlLeft = Menu.createControlLeft();
     public static ItemStack controlRight = Menu.createControlRight();
 
+    public static ItemStack controlResources = createControlResources();
+    public static ItemStack controlUpgrades = createControlUpgrades();
+    public static ItemStack controlMines = createControlMines();
+
     static ItemStack createBlack(){
         ItemStack itemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
         M.setItemName(itemStack, "");
@@ -36,6 +40,27 @@ public class Menu {
         ItemStack itemStack = new ItemStack(Material.CARROT);
         M.setItemName(itemStack, "Right");
         M.setItemNBTName(itemStack, "controlRight");
+        return itemStack;
+    }
+
+    static ItemStack createControlResources(){
+        ItemStack itemStack = new ItemStack(Material.BARREL);
+        M.setItemName(itemStack, "Resources");
+        M.setItemNBTName(itemStack, "controlResources");
+        return itemStack;
+    }
+
+    static ItemStack createControlUpgrades(){
+        ItemStack itemStack = new ItemStack(Material.EMERALD);
+        M.setItemName(itemStack, "Upgrades");
+        M.setItemNBTName(itemStack, "controlUpgrades");
+        return itemStack;
+    }
+
+    static ItemStack createControlMines(){
+        ItemStack itemStack = new ItemStack(Material.STONE_PICKAXE);
+        M.setItemName(itemStack, "Mines");
+        M.setItemNBTName(itemStack, "controlMines");
         return itemStack;
     }
 }

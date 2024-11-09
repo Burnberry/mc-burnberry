@@ -1,5 +1,6 @@
 package noppe.minecraft.burnberry.resourcegame;
 
+import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.resourcegame.resources.StoneResource;
 import noppe.minecraft.burnberry.resourcegame.resources.WoodResource;
 import org.bukkit.Bukkit;
@@ -16,9 +17,6 @@ public abstract class MiniGame {
     public String name;
     public Inventory inventory;
     public List<ResourceNode> nodes;
-    public ItemStack restart = new ItemStack(Material.STONE_PICKAXE);
-    public ItemStack resourcesAction = new ItemStack(Material.BARREL);
-    public ItemStack upgradesAction = new ItemStack(Material.EMERALD);
 
     public MiniGame(ResourceGame game, String name){
         this.game = game;
@@ -33,29 +31,7 @@ public abstract class MiniGame {
 
     public abstract void setNodes();
 
-    public Inventory getFinishedInventory(){
-        Inventory inventory = Bukkit.createInventory(null, 54, name);
-        inventory.setItem(22, restart);
-        inventory.setItem(23, resourcesAction);
-        inventory.setItem(24, upgradesAction);
-        return inventory;
-    }
     public void onSlotClicked(int slot){
-        if (isFinished()){
-            if (slot == 22){
-                finish();
-                return;
-            }
-            if (slot == 23){
-                game.viewResources();
-                return;
-            }
-            if (slot == 24){
-                game.viewUpgrades();
-                return;
-            }
-        }
-
         for (ResourceNode node: nodes){
             if (node.slot == slot){
                 node.onHit(game.player);
@@ -63,7 +39,8 @@ public abstract class MiniGame {
             }
         }
         if (isFinished()){
-            setInventory(getFinishedInventory());
+            restart();
+            game.viewMainMenu();
         }
     }
 
@@ -73,8 +50,10 @@ public abstract class MiniGame {
 
     public void setInventory(Inventory inventory){
         this.inventory = inventory;
-        game.reload();
+        viewMinigame();
     }
+
+    public abstract void viewMinigame();
 
     public Inventory getDefaultInventory(){
         return Bukkit.createInventory(null, 54, name);
@@ -91,6 +70,6 @@ public abstract class MiniGame {
 
     public void finish(){
         restart();
-        game.reload();
+        game.viewMines();
     }
 }
