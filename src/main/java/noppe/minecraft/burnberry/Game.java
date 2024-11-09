@@ -20,6 +20,9 @@ public class Game extends CustomEventListener {
     public Game(Burnberry plugin){
         burnberry = plugin;
         players = new ArrayList<>();
+        for (Player player: burnberry.getServer().getOnlinePlayers()) {
+            onNewPlayer(player);
+        }
     }
 
     public void onPlayerJoin(PlayerJoinEvent event, EventPlayerJoin ev){

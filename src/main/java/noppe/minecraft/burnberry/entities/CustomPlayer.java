@@ -8,6 +8,7 @@ import noppe.minecraft.burnberry.item.Menu;
 import noppe.minecraft.burnberry.resourcegame.ResourceGame;
 import noppe.minecraft.burnberry.view.View;
 import noppe.minecraft.burnberry.view.views.ResourceView;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
@@ -110,8 +111,10 @@ public class CustomPlayer extends CustomEntity{
                     game.viewResources();
                 } else if (M.matches(Menu.controlUpgrades, ev.item)){
                     game.viewUpgrades();
-                } if (M.matches(Menu.controlMines, ev.item)){
+                } else if (M.matches(Menu.controlMines, ev.item)){
                     game.viewMines();
+                } else if (M.matches(Menu.controlGamemode, ev.item)){
+                    playerWrapped.setGameMode(GameMode.CREATIVE);
                 }
             }
         }

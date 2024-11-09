@@ -15,6 +15,8 @@ public class Menu {
     public static ItemStack controlUpgrades = createControlUpgrades();
     public static ItemStack controlMines = createControlMines();
 
+    public static ItemStack  controlGamemode = createControlGamemode();
+
     static ItemStack createBlack(){
         ItemStack itemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
         M.setItemName(itemStack, "");
@@ -61,6 +63,13 @@ public class Menu {
         ItemStack itemStack = new ItemStack(Material.STONE_PICKAXE);
         M.setItemName(itemStack, "Mines");
         M.setItemNBTName(itemStack, "controlMines");
+        return itemStack;
+    }
+
+    static ItemStack createControlGamemode(){
+        ItemStack itemStack = new ItemStack(Material.GOLDEN_SWORD);
+        M.setItemName(itemStack, "Switch Gamemode");
+        M.setItemNBTName(itemStack, "controlGamemode");
         return itemStack;
     }
 }

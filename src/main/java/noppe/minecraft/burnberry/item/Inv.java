@@ -15,6 +15,8 @@ public class Inv {
 
         inventory.setItem(4, Menu.controlMines);
 
+        inventory.setItem(8, Menu.controlGamemode);
+
         return inventory;
     }
 }
