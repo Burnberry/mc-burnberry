@@ -1,9 +1,9 @@
 # mc-burnberry
 ### plan
 - Defense
-  - Monster spawn basic
-  - Base
-  - Monster pathfinding
+  - monster retarget research
+    - 1. only attack base
+    - 2. Attack player when possible
   - Base enter/attack detection
 
 - Resource Game

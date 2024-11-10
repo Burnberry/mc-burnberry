@@ -8,6 +8,7 @@ import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.location.Loc;
 import noppe.minecraft.burnberry.resourcegame.ResourceGame;
 import org.bukkit.Location;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.potion.PotionEffect;
@@ -21,7 +22,7 @@ public class DefenseGame extends CustomEventListener {
     public ResourceGame resourceGame;
 
     public List<CustomEnemy> monsters;
-    public Wolf anchor;
+    public Monster anchor;
 
     public DefenseGame(CustomPlayer player){
         this.player = player;
@@ -29,7 +30,6 @@ public class DefenseGame extends CustomEventListener {
 
         monsters = new ArrayList<>();
         spawnAnchor();
-        spawnZombie();
     }
 
     public void clean(){
@@ -40,7 +40,7 @@ public class DefenseGame extends CustomEventListener {
     }
 
     public void onTick(){
-
+//        spawnZombie();
     }
 
     @Override
@@ -66,7 +66,9 @@ public class DefenseGame extends CustomEventListener {
     }
 
     public void spawnAnchor(){
-        anchor = (Wolf) M.spawnEntity(this, Loc.tower, Wolf.class);
+        anchor = (Vex) M.spawnEntity(this, Loc.tower.clone().add(0, -0.1, 0), Vex.class);
         anchor.setAI(false);
+        anchor.setSilent(true);
+        anchor.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.1);
     }
 }
