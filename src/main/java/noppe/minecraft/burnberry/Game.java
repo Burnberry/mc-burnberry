@@ -25,6 +25,12 @@ public class Game extends CustomEventListener {
         }
     }
 
+    public void clean(){
+        for (CustomPlayer player: players){
+            player.clean();
+        }
+    }
+
     public void onPlayerJoin(PlayerJoinEvent event, EventPlayerJoin ev){
         Player player = event.getPlayer();
         M.print(player.getName()+" joined!");
@@ -44,5 +50,11 @@ public class Game extends CustomEventListener {
         }
 
         M.setInventory(player, Inv.lobby);
+    }
+
+    public void onTick(){
+        for (CustomPlayer player: players){
+            player.onTick();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package noppe.minecraft.burnberry.entities;
 
+import noppe.minecraft.burnberry.defensegame.DefenseGame;
 import noppe.minecraft.burnberry.event.CustomEventListener;
 import noppe.minecraft.burnberry.event.events.EventInventoryClick;
 import noppe.minecraft.burnberry.event.events.EventPlayerInteract;
@@ -24,15 +25,20 @@ public class CustomPlayer extends CustomEntity{
     public View view;
     private final int menuUseCooldown = 10;
     public int lastMenuUseTime = -menuUseCooldown;
-    public ResourceGame game;
+    public DefenseGame game;
 
     public CustomPlayer(CustomEventListener origin, Entity entity) {
         super(origin, entity);
         playerWrapped = (Player) entity;
-        game = new ResourceGame(this);
+        game = new DefenseGame(this);
+    }
+
+    public void clean(){
+        game.clean();
     }
 
     public void onTick(){
+        game.onTick();
     }
 
     public boolean useMenu(){
@@ -105,22 +111,22 @@ public class CustomPlayer extends CustomEntity{
         if (ev.rightClick && ev.item != null){
             if (M.matches(Menu.startGame, ev.item)){
                 setGameView();
-            }
-            else if (game != null){
-                if (M.matches(Menu.controlResources, ev.item)){
-                    game.viewResources();
-                } else if (M.matches(Menu.controlUpgrades, ev.item)){
-                    game.viewUpgrades();
-                } else if (M.matches(Menu.controlMines, ev.item)){
-                    game.viewMines();
-                } else if (M.matches(Menu.controlGamemode, ev.item)){
-                    playerWrapped.setGameMode(GameMode.CREATIVE);
-                }
+            } else if (M.matches(Menu.controlGamemode, ev.item)){
+                switchGameMode();
             }
         }
     }
 
     public void setGameView(){
         game.viewMainMenu();
+    }
+
+    public void switchGameMode(){
+        if (playerWrapped.getGameMode() == GameMode.CREATIVE){
+            playerWrapped.setGameMode(GameMode.ADVENTURE);
+        }
+        else {
+            playerWrapped.setGameMode(GameMode.CREATIVE);
+        }
     }
 }

@@ -21,7 +21,6 @@ public class ForageGame extends MiniGame {
 
     @Override
     public void setNodes() {
-        M.print(inventory.toString());
         nodes = new ArrayList<>();
         tree = new TreeNode(this, 7);
 

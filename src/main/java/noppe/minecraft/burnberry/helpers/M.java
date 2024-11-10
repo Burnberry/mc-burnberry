@@ -3,6 +3,7 @@ package noppe.minecraft.burnberry.helpers;
 import noppe.minecraft.burnberry.Burnberry;
 import noppe.minecraft.burnberry.entities.CustomEntity;
 import noppe.minecraft.burnberry.entities.CustomPlayer;
+import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -61,10 +62,11 @@ public class M {
     }
 
     public static String getItemNBTName(ItemStack itemstack){
-        if (!itemstack.getItemMeta().getPersistentDataContainer().has(key, PersistentDataType.STRING)){
+        ItemMeta meta = itemstack.getItemMeta();
+        if (meta == null || !meta.getPersistentDataContainer().has(key, PersistentDataType.STRING)){
             return "empty";
         }
-        return itemstack.getItemMeta().getPersistentDataContainer().get(key, PersistentDataType.STRING);
+        return meta.getPersistentDataContainer().get(key, PersistentDataType.STRING);
     }
 
     public static void setItemNBTTag(ItemStack itemstack, NamespacedKey key){
@@ -111,6 +113,12 @@ public class M {
 
     public static void setInventory(CustomPlayer player, Inventory inventory){
         M.setInventory(player.playerWrapped, inventory);
+    }
+
+    public static Entity spawnEntity(Object origin, Location location, Class clazz){
+        Entity entity = M.getWorld().spawn(location, clazz, false, null);
+        M.setMetaData(entity, "origin", origin);
+        return entity;
     }
 
     public static World getWorld(){

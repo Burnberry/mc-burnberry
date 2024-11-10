@@ -1,5 +1,11 @@
 # mc-burnberry
 ### plan
+- Defense
+  - Monster spawn basic
+  - Base
+  - Monster pathfinding
+  - Base enter/attack detection
+
 - Resource Game
   - Woodchopping 2
     - Really boring, how to make interesting?
@@ -18,3 +24,9 @@
     - coal needed for smelting
     - furnaces need to be built
     - upgrades for blast furnace + smokers
+
+### extras
+- custom bow charge
+  - Not possible with bows
+  - Custom bow mechanics with quickcharge crossbows onload?
+    - EntityLoadCrossbowEvent

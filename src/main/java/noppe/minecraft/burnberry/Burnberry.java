@@ -23,6 +23,8 @@ public final class Burnberry extends JavaPlugin implements Listener {
         M.print("Starting Plugin");
 
         ticks = 0;
+        this.getServer().getScheduler().scheduleSyncRepeatingTask(this, this::onTick, 1, 1);
+
         DefaultGameRules.SetDefaultGameRules(M.getWorld());
         this.getServer().getPluginManager().registerEvents(this, this);
         registerCommands.registerCommands();
@@ -30,7 +32,17 @@ public final class Burnberry extends JavaPlugin implements Listener {
         game = new Game(this);
     }
 
+    @Override
+    public void onDisable() {
+        M.print("Cleaning up for restart");
+        game.clean();
+    }
+
     public void print(String message){
         this.getServer().broadcastMessage(message);
+    }
+
+    public void onTick(){
+        game.onTick();
     }
 }

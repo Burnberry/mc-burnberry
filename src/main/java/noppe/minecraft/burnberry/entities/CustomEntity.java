@@ -8,7 +8,7 @@ public class CustomEntity extends CustomEventListener{
     public Entity entity;
     public CustomEventListener origin;
 
-    CustomEntity(CustomEventListener origin, Entity entity){
+    public CustomEntity(CustomEventListener origin, Entity entity){
         this.origin = origin;
         this.entity = entity;
         M.setMetaData(entity, "wrapper", this);
