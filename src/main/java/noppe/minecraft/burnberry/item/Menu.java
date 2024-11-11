@@ -15,6 +15,8 @@ public class Menu {
     public static ItemStack controlUpgrades = createControlUpgrades();
     public static ItemStack controlMines = createControlMines();
 
+    public static ItemStack controlSpawnMonster = createControlSpawnMonster();
+
     public static ItemStack  controlGamemode = createControlGamemode();
 
     static ItemStack createBlack(){
@@ -63,6 +65,13 @@ public class Menu {
         ItemStack itemStack = new ItemStack(Material.STONE_PICKAXE);
         M.setItemName(itemStack, "Mines");
         M.setItemNBTName(itemStack, "controlMines");
+        return itemStack;
+    }
+
+    public static ItemStack createControlSpawnMonster() {
+        ItemStack itemStack = new ItemStack(Material.BONE);
+        M.setItemName(itemStack, "Spawn Monster");
+        M.setItemNBTName(itemStack, "controlSpawnMonster");
         return itemStack;
     }
 

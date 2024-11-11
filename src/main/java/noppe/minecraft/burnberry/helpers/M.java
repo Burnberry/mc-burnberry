@@ -7,8 +7,10 @@ import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.damage.DamageSource;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -105,6 +107,20 @@ public class M {
 
     public static CustomEntity getWrapper(Block block){
         return (CustomEntity) M.getMetaData(block, "wrapper");
+    }
+
+    public static CustomPlayer getPlayerFromDamageSource(EntityDeathEvent event){
+        DamageSource damageSource = event.getDamageSource();
+        if (damageSource != null){
+            Entity entity = damageSource.getCausingEntity();
+            if (entity != null){
+                CustomEntity killer = M.getWrapper(entity);
+                if (killer.isPlayer()){
+                    return (CustomPlayer) killer;
+                }
+            }
+        }
+        return null;
     }
 
     public static void setInventory(Player player, Inventory inventory){

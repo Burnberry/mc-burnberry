@@ -1,9 +1,10 @@
 # mc-burnberry
 ### plan
 - Defense
+  - 
   - monster retarget research
-    - 1. only attack base
-    - 2. Attack player when possible
+    - only attack base
+    - Attack player when possible
   - Base enter/attack detection
 
 - Resource Game
@@ -30,3 +31,10 @@
   - Not possible with bows
   - Custom bow mechanics with quickcharge crossbows onload?
     - EntityLoadCrossbowEvent
+
+- arrow selection
+  - Use radial wheel using itemdisplay entities (to research)
+
+- hit sounds
+  - custom projectiles
+  - Different sounds per projectile

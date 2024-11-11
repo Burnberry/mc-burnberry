@@ -3,7 +3,8 @@ package noppe.minecraft.burnberry.resourcegame.resources;
 public enum Res {
     WOOD("Wood"),
     STONE("Stone"),
-    IRON("Iron");
+    IRON("Iron"),
+    SOUL("SOULS");
 
     private String stringValue;
     void Strings(final String s) { stringValue = s; }

@@ -113,6 +113,9 @@ public class CustomPlayer extends CustomEntity{
                 setGameView();
             } else if (M.matches(Menu.controlGamemode, ev.item)){
                 switchGameMode();
+            } else if (M.matches(Menu.controlSpawnMonster, ev.item)){
+//                game.spawnZombie(playerWrapped.getLocation());
+                game.spawnZombie();
             }
         }
     }

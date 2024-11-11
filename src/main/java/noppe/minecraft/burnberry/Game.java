@@ -2,12 +2,14 @@ package noppe.minecraft.burnberry;
 
 import noppe.minecraft.burnberry.entities.CustomPlayer;
 import noppe.minecraft.burnberry.event.CustomEventListener;
+import noppe.minecraft.burnberry.event.events.EventEntityDeath;
 import noppe.minecraft.burnberry.event.events.EventPlayerJoin;
 import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.item.Inv;
 import noppe.minecraft.burnberry.location.Loc;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.ArrayList;
@@ -55,6 +57,13 @@ public class Game extends CustomEventListener {
     public void onTick(){
         for (CustomPlayer player: players){
             player.onTick();
+        }
+    }
+
+    @Override
+    public void onEntityDeath(EntityDeathEvent event, EventEntityDeath ev) {
+        if (ev.player != null){
+            ev.player.game.onEntityDeath(event, ev);
         }
     }
 }
