@@ -18,6 +18,7 @@ public class Menu {
     public static ItemStack controlSpawnMonster = createControlSpawnMonster();
 
     public static ItemStack  controlGamemode = createControlGamemode();
+    public static ItemStack  controlRadialMenu = createControlRadialMenu();
 
     static ItemStack createBlack(){
         ItemStack itemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
@@ -79,6 +80,13 @@ public class Menu {
         ItemStack itemStack = new ItemStack(Material.GOLDEN_SWORD);
         M.setItemName(itemStack, "Switch Gamemode");
         M.setItemNBTName(itemStack, "controlGamemode");
+        return itemStack;
+    }
+
+    static ItemStack createControlRadialMenu(){
+        ItemStack itemStack = new ItemStack(Material.FIREWORK_STAR);
+        M.setItemName(itemStack, "Radial Menu");
+        M.setItemNBTName(itemStack, "controlRadialMenu");
         return itemStack;
     }
 }

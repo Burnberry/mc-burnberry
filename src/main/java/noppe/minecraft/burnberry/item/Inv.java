@@ -16,6 +16,7 @@ public class Inv {
 
         inventory.setItem(2, Menu.controlSpawnMonster);
 
+        inventory.setItem(6, Menu.controlRadialMenu);
         inventory.setItem(7, Menu.controlGamemode);
         inventory.setItem(8, Menu.startGame);
         return inventory;

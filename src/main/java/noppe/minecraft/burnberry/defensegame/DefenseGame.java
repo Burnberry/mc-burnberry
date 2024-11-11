@@ -12,11 +12,16 @@ import noppe.minecraft.burnberry.location.Loc;
 import noppe.minecraft.burnberry.resourcegame.ResourceGame;
 import noppe.minecraft.burnberry.resourcegame.resources.Res;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.BoundingBox;
+import org.bukkit.util.Transformation;
+import org.joml.AxisAngle4f;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +68,7 @@ public class DefenseGame extends CustomEventListener {
             spawnMonsters();
         }
         Location l = anchor.getLocation();
-        for (Entity entity: M.getWorld().getNearbyEntities(new BoundingBox(l.getX()-0.5, l.getY()-0.5, l.getZ()-3, l.getX()+0.5, l.getY()+0.5, l.getZ()+3))){
+        for (Entity entity: M.getWorld().getNearbyEntities(new BoundingBox(l.getX()-0.5, l.getY()-5, l.getZ()-5, l.getX()+0.5, l.getY()+5, l.getZ()+5))){
             if (entity != anchor && !(entity instanceof Player)){
                 entity.remove();
             }

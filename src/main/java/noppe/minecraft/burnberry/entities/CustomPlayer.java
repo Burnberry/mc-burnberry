@@ -4,6 +4,7 @@ import noppe.minecraft.burnberry.defensegame.DefenseGame;
 import noppe.minecraft.burnberry.event.CustomEventListener;
 import noppe.minecraft.burnberry.event.events.EventInventoryClick;
 import noppe.minecraft.burnberry.event.events.EventPlayerInteract;
+import noppe.minecraft.burnberry.gui.RadialItemMenu;
 import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.item.Menu;
 import noppe.minecraft.burnberry.resourcegame.ResourceGame;
@@ -11,12 +12,16 @@ import noppe.minecraft.burnberry.view.View;
 import noppe.minecraft.burnberry.view.views.ResourceView;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class CustomPlayer extends CustomEntity{
@@ -26,6 +31,8 @@ public class CustomPlayer extends CustomEntity{
     private final int menuUseCooldown = 10;
     public int lastMenuUseTime = -menuUseCooldown;
     public DefenseGame game;
+
+    public RadialItemMenu radialItemMenu;
 
     public CustomPlayer(CustomEventListener origin, Entity entity) {
         super(origin, entity);
@@ -116,6 +123,14 @@ public class CustomPlayer extends CustomEntity{
             } else if (M.matches(Menu.controlSpawnMonster, ev.item)){
 //                game.spawnZombie(playerWrapped.getLocation());
                 game.spawnZombie();
+            } else if (M.matches(Menu.controlRadialMenu, ev.item)){
+                List<ItemStack> items = new ArrayList<>();
+                items.add(new ItemStack(Material.GOLDEN_SWORD));
+                items.add(new ItemStack(Material.GOLDEN_SHOVEL));
+                items.add(new ItemStack(Material.GOLDEN_PICKAXE));
+                items.add(new ItemStack(Material.GOLDEN_AXE));
+                items.add(new ItemStack(Material.GOLDEN_HOE));
+                radialItemMenu = new RadialItemMenu(this, items);
             }
         }
     }

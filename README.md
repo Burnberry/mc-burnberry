@@ -1,11 +1,13 @@
 # mc-burnberry
 ### plan
 - Defense
-  - 
-  - monster retarget research
-    - only attack base
-    - Attack player when possible
-  - Base enter/attack detection
+  - Death loop
+  - Game start screen
+  - Multiplayer support
+  - Spectator mode /spectate
+  - Connect to resource game
+  - Bow unbreakable
+  - bounding box check if CustomEnemy
 
 - Resource Game
   - Woodchopping 2
