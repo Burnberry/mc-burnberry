@@ -13,5 +13,6 @@ public class RegisterCommands {
         burnberry.getCommand("template").setExecutor(new CommandTemplate());
         burnberry.getCommand("test").setExecutor(new CommandTest());
         burnberry.getCommand("spectate").setExecutor(new CommandSpectate());
+        burnberry.getCommand("stopGame").setExecutor(new CommandStopGame());
     }
 }

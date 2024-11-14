@@ -1,16 +1,12 @@
 package noppe.minecraft.burnberry.entities;
 
 import noppe.minecraft.burnberry.Lobby;
-import noppe.minecraft.burnberry.defensegame.DefenseGame;
-import noppe.minecraft.burnberry.event.CustomEventListener;
 import noppe.minecraft.burnberry.event.events.EventInventoryClick;
 import noppe.minecraft.burnberry.event.events.EventPlayerInteract;
 import noppe.minecraft.burnberry.gui.RadialItemMenu;
 import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.item.Menu;
-import noppe.minecraft.burnberry.resourcegame.ResourceGame;
 import noppe.minecraft.burnberry.view.View;
-import noppe.minecraft.burnberry.view.views.ResourceView;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -110,6 +106,8 @@ public class CustomPlayer extends CustomEntity{
     public void onPlayerInteract(PlayerInteractEvent event, EventPlayerInteract ev) {
         if (ev.rightClick && ev.item != null){
             if (M.matches(Menu.startGame, ev.item)){
+                lobby.startGame();
+            } else if (M.matches(Menu.resourceMenu, ev.item)){
                 setGameView();
             } else if (M.matches(Menu.controlGamemode, ev.item)){
                 switchGameMode();

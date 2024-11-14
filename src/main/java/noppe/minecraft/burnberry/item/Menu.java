@@ -2,12 +2,12 @@ package noppe.minecraft.burnberry.item;
 
 import noppe.minecraft.burnberry.helpers.M;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 public class Menu {
     public static ItemStack black = Menu.createBlack();
     public static ItemStack startGame = Menu.createStartGame();
+    public static ItemStack resourceMenu = Menu.createResourceMenu();
     public static ItemStack controlLeft = Menu.createControlLeft();
     public static ItemStack controlRight = Menu.createControlRight();
 
@@ -24,6 +24,13 @@ public class Menu {
         ItemStack itemStack = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
         M.setItemName(itemStack, "");
         M.setItemNBTName(itemStack, "Black");
+        return itemStack;
+    }
+
+    static ItemStack createResourceMenu(){
+        ItemStack itemStack = new ItemStack(Material.RED_BANNER);
+        M.setItemName(itemStack, "Menu");
+        M.setItemNBTName(itemStack, "resourceMenu");
         return itemStack;
     }
 

@@ -18,3 +18,8 @@ commands:
     description: spectate command
     usage: /<command>
     permission: burnberry.base
+
+  stopGame:
+    description: Stops active game
+    usage: /<command>
+    permission: burnberry.base

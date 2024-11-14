@@ -1,13 +1,9 @@
 # mc-burnberry
 ### plan
 - Defense
-  - Death loop
-  - Game start screen
-  - Multiplayer support
-  -- Spectator mode /spectate
   - Connect to resource game
   - Bow unbreakable
-  - bounding box check if CustomEnemy
+  - Death condition
 
 - Resource Game
   - Woodchopping 2
@@ -40,3 +36,6 @@
 - hit sounds
   - custom projectiles
   - Different sounds per projectile
+
+### long term features
+- Players leaving / rejoining

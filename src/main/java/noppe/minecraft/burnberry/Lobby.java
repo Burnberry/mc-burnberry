@@ -23,7 +23,7 @@ public class Lobby extends CustomEventListener {
 
     public Lobby(Burnberry plugin){
         burnberry = plugin;
-        game = new DefenseGame(this);
+//        game = new DefenseGame(this);
         players = new ArrayList<>();
         for (Player player: burnberry.getServer().getOnlinePlayers()) {
             onNewPlayer(player);
@@ -54,7 +54,11 @@ public class Lobby extends CustomEventListener {
             player.setGameMode(GameMode.ADVENTURE);
         }
 
-        M.setInventory(player, Inv.lobby);
+        if (game == null){
+            M.setInventory(player, Inv.lobby);
+        } else {
+            M.setInventory(player, Inv.game);
+        }
     }
 
     public void onTick(){
@@ -70,6 +74,22 @@ public class Lobby extends CustomEventListener {
     public void onEntityDeath(EntityDeathEvent event, EventEntityDeath ev) {
         if (ev.player != null && game != null){
             game.onEntityDeath(event, ev);
+        }
+    }
+
+    public void startGame(){
+        stopGame();
+        game = new DefenseGame(this);
+        for (CustomPlayer player: players){
+            M.setInventory(player, Inv.game);
+        }
+    }
+
+    public void stopGame(){
+        clean();
+        game = null;
+        for (CustomPlayer player: players){
+            M.setInventory(player, Inv.lobby);
         }
     }
 }

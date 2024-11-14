@@ -2,6 +2,7 @@ package noppe.minecraft.burnberry.defensegame;
 
 import noppe.minecraft.burnberry.Lobby;
 import noppe.minecraft.burnberry.defensegame.enemies.DefenseEnemy;
+import noppe.minecraft.burnberry.entities.CustomEntity;
 import noppe.minecraft.burnberry.entities.CustomPlayer;
 import noppe.minecraft.burnberry.entities.enemies.CustomEnemy;
 import noppe.minecraft.burnberry.defensegame.enemies.DefenseZombie;
@@ -13,16 +14,11 @@ import noppe.minecraft.burnberry.location.Loc;
 import noppe.minecraft.burnberry.resourcegame.ResourceGame;
 import noppe.minecraft.burnberry.resourcegame.resources.Res;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.BoundingBox;
-import org.bukkit.util.Transformation;
-import org.joml.AxisAngle4f;
-import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +32,8 @@ public class DefenseGame extends CustomEventListener {
     public LivingEntity anchor;
     public List<Location> spawnPoints;
 
-    public int miasma = -100;
-    public int miasmaRate = 1;
+    public int waveDelay = -100;
+    public int waveRate = 1;
 
     public DefenseGame(Lobby Lobby){
         this.lobby = lobby;
@@ -64,13 +60,14 @@ public class DefenseGame extends CustomEventListener {
     }
 
     public void onTick(){
-        miasma += miasmaRate;
-        if (miasma >= 0){
+        waveDelay += waveRate;
+        if (waveDelay >= 0){
             spawnMonsters();
         }
         Location l = anchor.getLocation();
         for (Entity entity: M.getWorld().getNearbyEntities(new BoundingBox(l.getX()-0.5, l.getY()-5, l.getZ()-5, l.getX()+0.5, l.getY()+5, l.getZ()+5))){
-            if (entity != anchor && !(entity instanceof Player)){
+            CustomEntity ent = M.getWrapper(entity);
+            if (ent instanceof CustomEnemy){
                 entity.remove();
             }
         }
@@ -90,7 +87,7 @@ public class DefenseGame extends CustomEventListener {
         int n = ThreadLocalRandom.current().nextInt(2, 6);
         for (int i=0; i<n; i++){
             spawnZombie();
-            miasma -= 50;
+            waveDelay -= 50;
         }
     }
 
