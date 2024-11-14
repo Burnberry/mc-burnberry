@@ -1,5 +1,6 @@
 package noppe.minecraft.burnberry.resourcegame;
 
+import noppe.minecraft.burnberry.entities.CustomPlayer;
 import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.resourcegame.resources.StoneResource;
 import noppe.minecraft.burnberry.resourcegame.resources.WoodResource;
@@ -13,13 +14,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class MiniGame {
+    public CustomPlayer player;
     public ResourceGame game;
     public String name;
     public Inventory inventory;
     public List<ResourceNode> nodes;
 
-    public MiniGame(ResourceGame game, String name){
+    public MiniGame(ResourceGame game, CustomPlayer player, String name){
         this.game = game;
+        this.player = player;
         this.name = name;
         restart();
     }
@@ -34,13 +37,13 @@ public abstract class MiniGame {
     public void onSlotClicked(int slot){
         for (ResourceNode node: nodes){
             if (node.slot == slot){
-                node.onHit(game.player);
+                node.onHit(player);
                 break;
             }
         }
         if (isFinished()){
             restart();
-            game.viewMainMenu();
+            game.viewMainMenu(player);
         }
     }
 
@@ -67,9 +70,4 @@ public abstract class MiniGame {
         }
         return true;
     };
-
-    public void finish(){
-        restart();
-        game.viewMines();
-    }
 }

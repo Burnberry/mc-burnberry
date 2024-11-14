@@ -4,7 +4,7 @@
   - Death loop
   - Game start screen
   - Multiplayer support
-  - Spectator mode /spectate
+  -- Spectator mode /spectate
   - Connect to resource game
   - Bow unbreakable
   - bounding box check if CustomEnemy

@@ -1,5 +1,6 @@
 package noppe.minecraft.burnberry.resourcegame.minigames;
 
+import noppe.minecraft.burnberry.entities.CustomPlayer;
 import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.resourcegame.MiniGame;
 import noppe.minecraft.burnberry.resourcegame.ResourceGame;
@@ -15,8 +16,8 @@ import java.util.ArrayList;
 public class ForageGame extends MiniGame {
     public TreeNode tree;
 
-    public ForageGame(ResourceGame game) {
-        super(game, "Forest");
+    public ForageGame(ResourceGame game, CustomPlayer player) {
+        super(game, player, "Forest");
     }
 
     @Override
@@ -48,6 +49,6 @@ public class ForageGame extends MiniGame {
 
     @Override
     public void viewMinigame() {
-        game.viewForest();
+        game.viewForest(player);
     }
 }

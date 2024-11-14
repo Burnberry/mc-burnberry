@@ -12,7 +12,7 @@ public final class Burnberry extends JavaPlugin implements Listener {
     CustomEventHandler eventHandler;
     RegisterCommands registerCommands;
     public int ticks;
-    public Game game;
+    public Lobby lobby;
 
     @Override
     public void onEnable() {
@@ -29,13 +29,13 @@ public final class Burnberry extends JavaPlugin implements Listener {
         this.getServer().getPluginManager().registerEvents(this, this);
         registerCommands.registerCommands();
 
-        game = new Game(this);
+        lobby = new Lobby(this);
     }
 
     @Override
     public void onDisable() {
         M.print("Cleaning up for restart");
-        game.clean();
+        lobby.clean();
     }
 
     public void print(String message){
@@ -43,6 +43,6 @@ public final class Burnberry extends JavaPlugin implements Listener {
     }
 
     public void onTick(){
-        game.onTick();
+        lobby.onTick();
     }
 }

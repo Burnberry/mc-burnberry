@@ -1,5 +1,6 @@
 package noppe.minecraft.burnberry.view.views;
 
+import noppe.minecraft.burnberry.entities.CustomPlayer;
 import noppe.minecraft.burnberry.event.events.EventInventoryClick;
 import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.item.Menu;
@@ -13,8 +14,8 @@ import org.bukkit.inventory.ItemStack;
 public class ResourceView extends View {
     ResourceGame game;
 
-    public ResourceView(ResourceGame game) {
-        super(game.player);
+    public ResourceView(ResourceGame game, CustomPlayer player) {
+        super(player);
         this.game = game;
         menuElements.add(left);
         menuElements.add(right);

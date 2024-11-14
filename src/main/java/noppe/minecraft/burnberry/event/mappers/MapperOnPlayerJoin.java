@@ -12,6 +12,6 @@ public class MapperOnPlayerJoin extends CustomEventMapper{
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
-        burnberry.game.onPlayerJoin(event, new EventPlayerJoin(event));
+        burnberry.lobby.onPlayerJoin(event, new EventPlayerJoin(event));
     }
 }

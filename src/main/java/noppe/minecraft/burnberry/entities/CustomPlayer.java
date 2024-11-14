@@ -1,5 +1,6 @@
 package noppe.minecraft.burnberry.entities;
 
+import noppe.minecraft.burnberry.Lobby;
 import noppe.minecraft.burnberry.defensegame.DefenseGame;
 import noppe.minecraft.burnberry.event.CustomEventListener;
 import noppe.minecraft.burnberry.event.events.EventInventoryClick;
@@ -30,22 +31,14 @@ public class CustomPlayer extends CustomEntity{
     public View view;
     private final int menuUseCooldown = 10;
     public int lastMenuUseTime = -menuUseCooldown;
-    public DefenseGame game;
+    public Lobby lobby;
 
     public RadialItemMenu radialItemMenu;
 
-    public CustomPlayer(CustomEventListener origin, Entity entity) {
-        super(origin, entity);
+    public CustomPlayer(Lobby lobby, Entity entity) {
+        super(lobby, entity);
         playerWrapped = (Player) entity;
-        game = new DefenseGame(this);
-    }
-
-    public void clean(){
-        game.clean();
-    }
-
-    public void onTick(){
-        game.onTick();
+        this.lobby = lobby;
     }
 
     public boolean useMenu(){
@@ -108,8 +101,8 @@ public class CustomPlayer extends CustomEntity{
     public void onInventoryClick(InventoryClickEvent event, EventInventoryClick ev){
         if (this.view != null){
             this.view.onInventoryClick(event, ev);
-        } else if (game != null) {
-            game.onInventoryClick(event, ev);
+        } else if (lobby != null && lobby.game != null) {
+            lobby.game.onInventoryClick(event, ev);
         }
     }
 
@@ -122,7 +115,7 @@ public class CustomPlayer extends CustomEntity{
                 switchGameMode();
             } else if (M.matches(Menu.controlSpawnMonster, ev.item)){
 //                game.spawnZombie(playerWrapped.getLocation());
-                game.spawnZombie();
+                lobby.game.spawnZombie();
             } else if (M.matches(Menu.controlRadialMenu, ev.item)){
                 List<ItemStack> items = new ArrayList<>();
                 items.add(new ItemStack(Material.GOLDEN_SWORD));
@@ -136,7 +129,7 @@ public class CustomPlayer extends CustomEntity{
     }
 
     public void setGameView(){
-        game.viewMainMenu();
+        lobby.game.viewMainMenu(this);
     }
 
     public void switchGameMode(){

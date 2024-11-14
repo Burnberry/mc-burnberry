@@ -13,3 +13,8 @@ commands:
     description: Test command
     usage: /<command> <value>
     permission: burnberry.dev
+
+  spectate:
+    description: spectate command
+    usage: /<command>
+    permission: burnberry.base

@@ -1,5 +1,6 @@
 package noppe.minecraft.burnberry.resourcegame;
 
+import noppe.minecraft.burnberry.defensegame.DefenseGame;
 import noppe.minecraft.burnberry.entities.CustomPlayer;
 import noppe.minecraft.burnberry.event.CustomEventListener;
 import noppe.minecraft.burnberry.event.events.EventInventoryClick;
@@ -18,10 +19,11 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 
 public class ResourceGame extends CustomEventListener {
-    public CustomPlayer player;
+    public DefenseGame game;
     public Dictionary<Res, GameResource> resources;
     public Upgrades upgrades;
     public List<Upgrade> upgradeSlotMap;
@@ -33,19 +35,19 @@ public class ResourceGame extends CustomEventListener {
     public ItemStack forestAction = new ItemStack(Material.STONE_AXE);
     public ItemStack minesAction = new ItemStack(Material.STONE_PICKAXE);
 
-    public ForageGame forageGame;
-    public MiningGame miningGame;
+    public Dictionary<CustomPlayer, ForageGame> forageGames;
+    public Dictionary<CustomPlayer, MiningGame> miningGames;
 
-    public ResourceGame(CustomPlayer player){
-        this.player = player;
+    public ResourceGame(DefenseGame game){
+        this.game = game;
         restart();
     }
 
     public void restart(){
         upgrades = new Upgrades();
         resources = ResourceGetter.getResources();
-        miningGame = new MiningGame(this);
-        forageGame = new ForageGame(this);
+        forageGames = new Hashtable<>();
+        miningGames = new Hashtable<>();
     }
 
     @Override
@@ -54,29 +56,29 @@ public class ResourceGame extends CustomEventListener {
         Inventory inventory = event.getClickedInventory();
         int slot = event.getSlot();
         if (menuInventory == inventory){
-            onMenuClick(slot);
-        } else if (miningGame.getInventory() == inventory){
-            miningGame.onSlotClicked(slot);
-        } else if (forageGame.getInventory() == inventory){
-            forageGame.onSlotClicked(slot);
+            onMenuClick(slot, ev.player);
+        } else if (miningGames.get(ev.player) != null && miningGames.get(ev.player).getInventory() == inventory){
+            miningGames.get(ev.player).onSlotClicked(slot);
+        } else if (forageGames.get(ev.player) != null && forageGames.get(ev.player).getInventory() == inventory){
+            forageGames.get(ev.player).onSlotClicked(slot);
         } else if (upgradeInventory == inventory && slot < upgradeSlotMap.size() && upgradeSlotMap.get(slot).canBuy(this)) {
             upgradeSlotMap.get(event.getSlot()).buy(this);
-            viewUpgrades();
+            viewUpgrades(ev.player);
         }
     }
 
-    public void onMenuClick(int slot){
+    public void onMenuClick(int slot, CustomPlayer player){
         if (slot == 12){
-            viewForest();
+            viewForest(player);
         }
         if (slot == 13){
-            viewMines();
+            viewMines(player);
         }
         if (slot == 21){
-            viewResources();
+            viewResources(player);
         }
         if (slot == 22){
-            viewUpgrades();
+            viewUpgrades(player);
         }
     }
 
@@ -89,16 +91,16 @@ public class ResourceGame extends CustomEventListener {
         return inventory;
     }
 
-    public void reload(Inventory inventory){
+    public void reload(Inventory inventory, CustomPlayer player){
         player.playerWrapped.openInventory(inventory);
     }
 
-    public void viewMainMenu(){
+    public void viewMainMenu(CustomPlayer player){
         menuInventory = getFinishedInventory();
-        reload(menuInventory);
+        reload(menuInventory, player);
     }
 
-    public void viewResources(){
+    public void viewResources(CustomPlayer player){
         Inventory inventory = Bukkit.createInventory(null, 54, "Resources");
         int slot = 0;
         for (Res res: Res.values()){
@@ -107,10 +109,10 @@ public class ResourceGame extends CustomEventListener {
                 slot++;
             }
         }
-        reload(inventory);
+        reload(inventory, player);
     }
 
-    public void viewUpgrades(){
+    public void viewUpgrades(CustomPlayer player){
         Inventory inventory = Bukkit.createInventory(null, 54, "Upgrades");
         upgradeSlotMap = new ArrayList<>();
         int slot = 0;
@@ -122,14 +124,20 @@ public class ResourceGame extends CustomEventListener {
             }
         }
         upgradeInventory = inventory;
-        reload(inventory);
+        reload(inventory, player);
     }
 
-    public void viewForest(){
-        reload(forageGame.getInventory());
+    public void viewForest(CustomPlayer player){
+        if (forageGames.get(player) == null){
+            forageGames.put(player, new ForageGame(this, player));
+        }
+        reload(forageGames.get(player).getInventory(), player);
     }
 
-    public void viewMines(){
-        reload(miningGame.getInventory());
+    public void viewMines(CustomPlayer player){
+        if (miningGames.get(player) == null){
+            miningGames.put(player, new MiningGame(this, player));
+        }
+        reload(miningGames.get(player).getInventory(), player);
     }
 }

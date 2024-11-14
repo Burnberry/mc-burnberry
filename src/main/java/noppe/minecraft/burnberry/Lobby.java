@@ -1,5 +1,6 @@
 package noppe.minecraft.burnberry;
 
+import noppe.minecraft.burnberry.defensegame.DefenseGame;
 import noppe.minecraft.burnberry.entities.CustomPlayer;
 import noppe.minecraft.burnberry.event.CustomEventListener;
 import noppe.minecraft.burnberry.event.events.EventEntityDeath;
@@ -15,12 +16,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game extends CustomEventListener {
+public class Lobby extends CustomEventListener {
     public Burnberry burnberry;
     public List<CustomPlayer> players;
+    public DefenseGame game;
 
-    public Game(Burnberry plugin){
+    public Lobby(Burnberry plugin){
         burnberry = plugin;
+        game = new DefenseGame(this);
         players = new ArrayList<>();
         for (Player player: burnberry.getServer().getOnlinePlayers()) {
             onNewPlayer(player);
@@ -28,8 +31,8 @@ public class Game extends CustomEventListener {
     }
 
     public void clean(){
-        for (CustomPlayer player: players){
-            player.clean();
+        if (game != null){
+            game.clean();
         }
     }
 
@@ -55,15 +58,18 @@ public class Game extends CustomEventListener {
     }
 
     public void onTick(){
-        for (CustomPlayer player: players){
-            player.onTick();
+//        for (CustomPlayer player: players){
+//            player.onTick();
+//        }
+        if (game != null){
+            game.onTick();
         }
     }
 
     @Override
     public void onEntityDeath(EntityDeathEvent event, EventEntityDeath ev) {
-        if (ev.player != null){
-            ev.player.game.onEntityDeath(event, ev);
+        if (ev.player != null && game != null){
+            game.onEntityDeath(event, ev);
         }
     }
 }

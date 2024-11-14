@@ -1,5 +1,6 @@
 package noppe.minecraft.burnberry.resourcegame.minigames;
 
+import noppe.minecraft.burnberry.entities.CustomPlayer;
 import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.resourcegame.MiniGame;
 import noppe.minecraft.burnberry.resourcegame.ResourceGame;
@@ -16,8 +17,8 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MiningGame extends MiniGame {
-    public MiningGame(ResourceGame game) {
-        super(game, "Mines");
+    public MiningGame(ResourceGame game, CustomPlayer player) {
+        super(game, player, "Mines");
     }
 
     @Override
@@ -40,6 +41,6 @@ public class MiningGame extends MiniGame {
 
     @Override
     public void viewMinigame() {
-        game.viewMines();
+        game.viewMines(player);
     }
 }

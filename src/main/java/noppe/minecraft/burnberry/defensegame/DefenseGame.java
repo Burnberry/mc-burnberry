@@ -1,5 +1,6 @@
 package noppe.minecraft.burnberry.defensegame;
 
+import noppe.minecraft.burnberry.Lobby;
 import noppe.minecraft.burnberry.defensegame.enemies.DefenseEnemy;
 import noppe.minecraft.burnberry.entities.CustomPlayer;
 import noppe.minecraft.burnberry.entities.enemies.CustomEnemy;
@@ -28,7 +29,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DefenseGame extends CustomEventListener {
-    public CustomPlayer player;
+    public Lobby lobby;
     public ResourceGame resourceGame;
 
     public List<CustomEnemy> monsters;
@@ -38,9 +39,9 @@ public class DefenseGame extends CustomEventListener {
     public int miasma = -100;
     public int miasmaRate = 1;
 
-    public DefenseGame(CustomPlayer player){
-        this.player = player;
-        resourceGame = new ResourceGame(player);
+    public DefenseGame(Lobby Lobby){
+        this.lobby = lobby;
+        resourceGame = new ResourceGame(this);
 
         setSpawnPoints();
         monsters = new ArrayList<>();
@@ -81,8 +82,8 @@ public class DefenseGame extends CustomEventListener {
         resourceGame.onInventoryClick(event, ev);
     }
 
-    public void viewMainMenu(){
-        resourceGame.viewMainMenu();
+    public void viewMainMenu(CustomPlayer player){
+        resourceGame.viewMainMenu(player);
     }
 
     public void spawnMonsters(){
@@ -113,7 +114,7 @@ public class DefenseGame extends CustomEventListener {
 
     @Override
     public void onEntityDeath(EntityDeathEvent event, EventEntityDeath ev) {
-        if (ev.player != null){
+        if (ev.player != null && ev.entity != null){
             resourceGame.resources.get(Res.SOUL).addAmount(((DefenseEnemy) ev.entity).souls);
         }
     }

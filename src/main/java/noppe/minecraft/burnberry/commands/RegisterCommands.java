@@ -11,6 +11,7 @@ public class RegisterCommands {
 
     public void registerCommands(){
         burnberry.getCommand("template").setExecutor(new CommandTemplate());
-        burnberry.getCommand("test").setExecutor(new CommandTemplate());
+        burnberry.getCommand("test").setExecutor(new CommandTest());
+        burnberry.getCommand("spectate").setExecutor(new CommandSpectate());
     }
 }
