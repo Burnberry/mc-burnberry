@@ -2,7 +2,6 @@
 ### plan
 - Defense
   - Connect to resource game
-  - Bow unbreakable
   - Death condition
 
 - Resource Game
