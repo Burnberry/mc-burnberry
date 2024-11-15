@@ -3,6 +3,41 @@
 - Defense
   - Connect to resource game
   - Death condition
+  - upgrades/constraints:
+    - Limited number of base arrows (4)
+      - regenerates near base
+      - upgrade max number/regen speed
+      - upgrade chance arrow replenish on hit
+      - upgrade damage/effects
+      - Special arrows? Should be easy to switch
+        - Consumables initially?
+     - health regen only near base
+       - Very slow base 
+     - repair base
+  - enemies
+    - weakling zombie
+      - small, insta kill, somewhat fast
+    - zombie
+      - normal, slow
+    - zombie grunt
+      - slightly bigger, tanky
+    - tiny ghasts
+    - cubes with extra splits?
+    - shulkers?
+    - evoker?
+    - giant vexes?
+  - bosses:
+    - They spawn from past behing the first wall, first big boss breaks wall
+    - Giant golem
+      - extremely tanky
+      - stops a few blocks from the entrance blocking arrows
+    - Riders
+      - tiny rider rides on a ravager/horse
+      - Hard to hit rider
+      - Speeds up, needs to be shot to slow down
+    - Lich
+      - large crowned skeleton
+      - Spawns skeletons
 
 - Resource Game
   - Woodchopping 2

@@ -1,9 +1,12 @@
 package noppe.minecraft.burnberry.event.mappers;
 
 import noppe.minecraft.burnberry.Burnberry;
+import noppe.minecraft.burnberry.helpers.M;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 
@@ -25,5 +28,10 @@ public class DisableEvents extends CustomEventMapper {
     @EventHandler
     public void disableDurabilityLoss(PlayerItemDamageEvent event){
         event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void testBowShoot(EntityShootBowEvent event){
+        M.print(""+event.getForce());
     }
 }
