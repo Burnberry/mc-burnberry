@@ -1,4 +1,4 @@
-package noppe.minecraft.burnberry.resourcegame.upgrades;
+package noppe.minecraft.burnberry.resourcegame.util;
 
 import noppe.minecraft.burnberry.resourcegame.resources.Res;
 

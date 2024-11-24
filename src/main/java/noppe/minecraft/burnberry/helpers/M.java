@@ -91,6 +91,12 @@ public class M {
         itemStack.setItemMeta(meta);
     }
 
+    public static String getItemName(ItemStack itemStack){
+        ItemMeta meta = itemStack.getItemMeta();
+        assert meta != null;
+        return meta.getDisplayName();
+    }
+
     public static void setLore(ItemStack item, String[] lore){
         ItemMeta itemMeta = item.getItemMeta();
         assert itemMeta != null;

@@ -5,6 +5,8 @@ import noppe.minecraft.burnberry.entities.CustomPlayer;
 import noppe.minecraft.burnberry.event.CustomEventListener;
 import noppe.minecraft.burnberry.event.events.EventInventoryClick;
 import noppe.minecraft.burnberry.helpers.M;
+import noppe.minecraft.burnberry.resourcegame.crafting.Recipe;
+import noppe.minecraft.burnberry.resourcegame.crafting.Recipes;
 import noppe.minecraft.burnberry.resourcegame.minigames.ForageGame;
 import noppe.minecraft.burnberry.resourcegame.minigames.MiningGame;
 import noppe.minecraft.burnberry.resourcegame.resources.Res;
@@ -25,13 +27,20 @@ import java.util.List;
 public class ResourceGame extends CustomEventListener {
     public DefenseGame game;
     public Dictionary<Res, GameResource> resources;
+
     public Upgrades upgrades;
     public List<Upgrade> upgradeSlotMap;
     public Inventory upgradeInventory;
+
+    public Recipes recipes;
+    public List<Recipe> recipeSlotMap;
+    public Inventory recipeInventory;
+
     public Inventory menuInventory;
 
     public ItemStack resourcesAction = new ItemStack(Material.BARREL);
     public ItemStack upgradesAction = new ItemStack(Material.EMERALD);
+    public ItemStack recipesAction = new ItemStack(Material.CRAFTING_TABLE);
     public ItemStack forestAction = new ItemStack(Material.STONE_AXE);
     public ItemStack minesAction = new ItemStack(Material.STONE_PICKAXE);
 
@@ -45,6 +54,7 @@ public class ResourceGame extends CustomEventListener {
 
     public void restart(){
         upgrades = new Upgrades();
+        recipes = new Recipes();
         resources = ResourceGetter.getResources();
         forageGames = new Hashtable<>();
         miningGames = new Hashtable<>();
@@ -64,21 +74,23 @@ public class ResourceGame extends CustomEventListener {
         } else if (upgradeInventory == inventory && slot < upgradeSlotMap.size() && upgradeSlotMap.get(slot).canBuy(this)) {
             upgradeSlotMap.get(event.getSlot()).buy(this);
             viewUpgrades(ev.player);
+        } else if (recipeInventory == inventory && slot < recipeSlotMap.size() && recipeSlotMap.get(slot).canBuy(this)) {
+            recipeSlotMap.get(event.getSlot()).buy(this);
+            viewRecipes(ev.player);
         }
     }
 
     public void onMenuClick(int slot, CustomPlayer player){
         if (slot == 12){
             viewForest(player);
-        }
-        if (slot == 13){
+        } else if (slot == 13){
             viewMines(player);
-        }
-        if (slot == 21){
+        } else if (slot == 21){
             viewResources(player);
-        }
-        if (slot == 22){
+        } else if (slot == 22){
             viewUpgrades(player);
+        } else if (slot == 23){
+            viewRecipes(player);
         }
     }
 
@@ -88,6 +100,7 @@ public class ResourceGame extends CustomEventListener {
         inventory.setItem(13, minesAction);
         inventory.setItem(21, resourcesAction);
         inventory.setItem(22, upgradesAction);
+        inventory.setItem(23, recipesAction);
         return inventory;
     }
 
@@ -113,18 +126,31 @@ public class ResourceGame extends CustomEventListener {
     }
 
     public void viewUpgrades(CustomPlayer player){
-        Inventory inventory = Bukkit.createInventory(null, 54, "Upgrades");
+        upgradeInventory = Bukkit.createInventory(null, 54, "Upgrades");
         upgradeSlotMap = new ArrayList<>();
         int slot = 0;
         for (Upgrade upgrade: upgrades.upgrades){
             if (upgrade.isAvailable()){
-                inventory.setItem(slot, upgrade.getItem());
+                upgradeInventory.setItem(slot, upgrade.getItem());
                 upgradeSlotMap.add(upgrade);
                 slot++;
             }
         }
-        upgradeInventory = inventory;
-        reload(inventory, player);
+        reload(upgradeInventory, player);
+    }
+
+    public void viewRecipes(CustomPlayer player){
+        recipeInventory = Bukkit.createInventory(null, 54, "Recipes");
+        recipeSlotMap = new ArrayList<>();
+        int slot = 0;
+        for (Recipe recipe: recipes.recipes){
+            if (recipe.isAvailable()){
+                recipeInventory.setItem(slot, recipe.getItem());
+                recipeSlotMap.add(recipe);
+                slot++;
+            }
+        }
+        reload(recipeInventory, player);
     }
 
     public void viewForest(CustomPlayer player){

@@ -1,15 +1,15 @@
 package noppe.minecraft.burnberry.resourcegame.upgrades;
 
-import jdk.internal.net.http.common.Pair;
 import noppe.minecraft.burnberry.resourcegame.ResourceGame;
 import noppe.minecraft.burnberry.resourcegame.resources.Res;
+import noppe.minecraft.burnberry.resourcegame.util.CostPair;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class upgradePickaxe extends Upgrade{
+public class UpgradePickaxe extends Upgrade{
 
     @Override
     public void onBuy(ResourceGame game) {
@@ -17,8 +17,8 @@ public class upgradePickaxe extends Upgrade{
     }
 
     @Override
-    public List<CostPair> getCosts() {
-        List<CostPair> costs = new ArrayList<>();
+    public void updateCosts() {
+        costs = new ArrayList<>();
         if (level == 0){
             costs.add(new CostPair(Res.STONE, 3));
         } else if (level == 1) {
@@ -28,7 +28,6 @@ public class upgradePickaxe extends Upgrade{
         } else if (level == 3) {
             costs.add(new CostPair(Res.STONE, 100));
         }
-        return costs;
     }
 
     @Override

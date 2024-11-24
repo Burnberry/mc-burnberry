@@ -9,6 +9,6 @@ public class Upgrades {
 
     public Upgrades(){
         upgrades = new ArrayList<>();
-        upgrades.add(new upgradePickaxe());
+        upgrades.add(new UpgradePickaxe());
     }
 }
