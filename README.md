@@ -1,9 +1,6 @@
 # mc-burnberry
 ### plan
-- arrow inventory
-  - Update arrow in player inventory
-  - update arrow count on bow name?
-  + CustomArrows?
+- disable melee hits
 
 - Defense
   - Connect to resource game
@@ -44,6 +41,11 @@
     - Lich
       - large crowned skeleton
       - Spawns skeletons
+
+- arrow inventory
+  - Update arrow in player inventory
+  - update arrow count on bow name?
+  + CustomArrows?
 
 - Resource Game
   - Woodchopping 2
