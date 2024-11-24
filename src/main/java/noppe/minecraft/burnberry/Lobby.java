@@ -39,11 +39,15 @@ public class Lobby extends CustomEventListener {
     public void onPlayerJoin(PlayerJoinEvent event, EventPlayerJoin ev){
         Player player = event.getPlayer();
         M.print(player.getName()+" joined!");
-        this.onNewPlayer(player);
+        CustomPlayer customPlayer = this.onNewPlayer(player);
+        if (game != null){
+            game.onNewPlayer(customPlayer);
+        }
     }
 
-    public void onNewPlayer(Player player){
-        players.add(new CustomPlayer(this, player));
+    public CustomPlayer onNewPlayer(Player player){
+        CustomPlayer cPlayer = new CustomPlayer(this, player);
+        players.add(cPlayer);
 
         player.teleport(Loc.spawn);
 
@@ -59,6 +63,7 @@ public class Lobby extends CustomEventListener {
         } else {
             M.setInventory(player, Inv.game);
         }
+        return cPlayer;
     }
 
     public void onTick(){

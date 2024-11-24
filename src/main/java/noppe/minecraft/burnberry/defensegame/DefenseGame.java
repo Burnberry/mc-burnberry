@@ -1,26 +1,35 @@
 package noppe.minecraft.burnberry.defensegame;
 
 import noppe.minecraft.burnberry.Lobby;
-import noppe.minecraft.burnberry.defensegame.enemies.DefenseEnemy;
+import noppe.minecraft.burnberry.defensegame.enemies.*;
 import noppe.minecraft.burnberry.entities.CustomEntity;
 import noppe.minecraft.burnberry.entities.CustomPlayer;
 import noppe.minecraft.burnberry.entities.enemies.CustomEnemy;
-import noppe.minecraft.burnberry.defensegame.enemies.DefenseZombie;
 import noppe.minecraft.burnberry.event.CustomEventListener;
 import noppe.minecraft.burnberry.event.events.EventEntityDeath;
 import noppe.minecraft.burnberry.event.events.EventInventoryClick;
+import noppe.minecraft.burnberry.event.events.EventPlayerShootBow;
 import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.location.Loc;
 import noppe.minecraft.burnberry.resourcegame.ResourceGame;
 import noppe.minecraft.burnberry.resourcegame.resources.Res;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.BoundingBox;
+import org.bukkit.util.Transformation;
+import org.bukkit.util.Vector;
+import org.joml.AxisAngle4f;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -28,20 +37,34 @@ public class DefenseGame extends CustomEventListener {
     public Lobby lobby;
     public ResourceGame resourceGame;
 
+    public Dictionary<CustomPlayer, DefensePlayerState> playerStates;
+
     public List<CustomEnemy> monsters;
     public LivingEntity anchor;
+    public ItemDisplay anchorDisplay;
+    public double alpha=0;
     public List<Location> spawnPoints;
 
     public int waveDelay = -100;
     public int waveRate = 1;
 
-    public DefenseGame(Lobby Lobby){
+    public DefenseGame(Lobby lobby){
         this.lobby = lobby;
+
+        playerStates = new Hashtable<>();
+        for (CustomPlayer player: lobby.players){
+            onNewPlayer(player);
+        }
+
         resourceGame = new ResourceGame(this);
 
         setSpawnPoints();
         monsters = new ArrayList<>();
         spawnAnchor();
+    }
+
+    public void onNewPlayer(CustomPlayer player){
+        playerStates.put(player, new DefensePlayerState(player));
     }
 
     private void setSpawnPoints() {
@@ -54,6 +77,7 @@ public class DefenseGame extends CustomEventListener {
 
     public void clean(){
         anchor.remove();
+        anchorDisplay.remove();
         for (CustomEnemy enemy: monsters){
             enemy.remove();
         }
@@ -69,9 +93,29 @@ public class DefenseGame extends CustomEventListener {
             CustomEntity ent = M.getWrapper(entity);
             if (ent instanceof CustomEnemy){
                 entity.remove();
+            } else if (ent instanceof CustomPlayer) {
+                playerStates.get(ent).addArrows(100);
             }
         }
 
+        alpha += Math.PI/100;
+        Transformation transform = new Transformation(new Vector3f(0, 0, 0), new AxisAngle4f((float)alpha, 0f, 1f, 0f), new Vector3f(0.5f, .5f, 0.5f), new AxisAngle4f(0f, 0f, 0f, 0f));
+        anchorDisplay.setTransformation(transform);
+
+    }
+
+    @Override
+    public void onPlayerShootBow(EntityShootBowEvent event, EventPlayerShootBow ev) {
+        DefensePlayerState playerState = playerStates.get(ev.player);
+        if (playerState == null){
+            return;
+        }
+        if (playerState.hasArrow()){
+            playerState.useArrow();
+        } else{
+            event.setCancelled(true);
+        }
+        M.print("Arrows: " + playerState.arrowCount + '/' + playerState.arrowCapacity);
     }
 
     @Override
@@ -92,7 +136,7 @@ public class DefenseGame extends CustomEventListener {
     }
 
     public void spawnZombie(Location location){
-        CustomEnemy enemy = new DefenseZombie(this, location);
+        CustomEnemy enemy = new DefenseWeakZombie(this, location);
         enemy.setTarget(anchor);
         monsters.add(enemy);
     }
@@ -107,6 +151,10 @@ public class DefenseGame extends CustomEventListener {
         anchor.setSilent(true);
         anchor.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.1);
         anchor.setRemoveWhenFarAway(false);
+
+        anchorDisplay = (ItemDisplay) M.spawnEntity(anchor, anchor.getLocation().clone().add(0, 1, 0), ItemDisplay.class);
+        anchorDisplay.setItemStack(new ItemStack(Material.GOLDEN_SWORD));
+        anchorDisplay.setVelocity(new Vector(1, 0, 0));
     }
 
     @Override

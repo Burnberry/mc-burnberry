@@ -112,8 +112,8 @@ public class CustomPlayer extends CustomEntity{
             } else if (M.matches(Menu.controlGamemode, ev.item)){
                 switchGameMode();
             } else if (M.matches(Menu.controlSpawnMonster, ev.item)){
-//                game.spawnZombie(playerWrapped.getLocation());
-                lobby.game.spawnZombie();
+                lobby.game.spawnZombie(playerWrapped.getLocation());
+//                lobby.game.spawnZombie();
             } else if (M.matches(Menu.controlRadialMenu, ev.item)){
                 List<ItemStack> items = new ArrayList<>();
                 items.add(new ItemStack(Material.GOLDEN_SWORD));

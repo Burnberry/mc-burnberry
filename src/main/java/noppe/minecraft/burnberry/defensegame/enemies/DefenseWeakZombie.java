@@ -7,9 +7,10 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Zombie;
 
-public class DefenseZombie extends DefenseEnemy {
-    public DefenseZombie(DefenseGame game, Location location) {
+public class DefenseWeakZombie extends DefenseEnemy{
+    public DefenseWeakZombie(DefenseGame game, Location location) {
         super(game, (Monster) M.spawnEntity(game, location, Zombie.class));
         getMob().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(1);
+        getMob().getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.7);
     }
 }

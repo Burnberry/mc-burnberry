@@ -1,8 +1,14 @@
 # mc-burnberry
 ### plan
+- arrow inventory
+  - Update arrow in player inventory
+  - update arrow count on bow name?
+  + CustomArrows?
+
 - Defense
   - Connect to resource game
   - Death condition
+  - Crafting 
   - upgrades/constraints:
     - Limited number of base arrows (4)
       - regenerates near base

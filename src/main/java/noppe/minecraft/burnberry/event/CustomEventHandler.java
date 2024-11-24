@@ -27,6 +27,7 @@ public class CustomEventHandler {
 //        // entity events
 //        this.arenaEventMappers.add(new MapperOnEntityTarget(burnberry));
         this.arenaEventMappers.add(new MapperOnEntityDeath(burnberry));
+        this.arenaEventMappers.add(new MapperOnEntityShootBow(burnberry));
 //        this.arenaEventMappers.add(new MapperOnEntityRemove(burnberry));
 //        this.arenaEventMappers.add(new MapperOnEntityDamage(burnberry));
 

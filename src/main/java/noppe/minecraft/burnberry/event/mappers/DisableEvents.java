@@ -30,8 +30,4 @@ public class DisableEvents extends CustomEventMapper {
         event.setCancelled(true);
     }
 
-    @EventHandler
-    public void testBowShoot(EntityShootBowEvent event){
-        M.print(""+event.getForce());
-    }
 }
