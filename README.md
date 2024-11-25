@@ -1,16 +1,13 @@
 # mc-burnberry
 ### plan
-- disable melee hits
 
 - Defense
-  - Connect to resource game
   - Death condition
-  - Crafting 
+  - crafting
+    - more recipes
+    - crafting timers
   - upgrades/constraints:
-    - Limited number of base arrows (4)
-      - regenerates near base
-      - upgrade max number/regen speed
-      - upgrade chance arrow replenish on hit
+      - upgrade max number
       - upgrade damage/effects
       - Special arrows? Should be easy to switch
         - Consumables initially?
@@ -45,6 +42,7 @@
 - arrow inventory
   - Update arrow in player inventory
   - update arrow count on bow name?
+    - set arrow count on start
   + CustomArrows?
 
 - Resource Game

@@ -122,6 +122,8 @@ public class CustomPlayer extends CustomEntity{
                 items.add(new ItemStack(Material.GOLDEN_AXE));
                 items.add(new ItemStack(Material.GOLDEN_HOE));
                 radialItemMenu = new RadialItemMenu(this, items);
+            } else if (event.getClickedBlock() != null && event.getClickedBlock().getBlockData().getMaterial() == Material.FLETCHING_TABLE && lobby.game != null && !ev.offHand){
+                lobby.game.onPlayerGetArrows(ev.player);
             }
         }
     }

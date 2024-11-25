@@ -14,6 +14,7 @@ public class EventPlayerInteract extends CustomEvent{
     public CustomPlayer player;
     public boolean leftClick = false;
     public boolean rightClick = false;
+    public boolean offHand = false;
 
     public EventPlayerInteract(PlayerInteractEvent event) {
         super(event);
@@ -23,6 +24,7 @@ public class EventPlayerInteract extends CustomEvent{
         }
         if(Objects.requireNonNull(event.getHand()).name().equals("OFF_HAND")){
             item = event.getPlayer().getInventory().getItemInOffHand();
+            offHand = true;
         }
 
         if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK){

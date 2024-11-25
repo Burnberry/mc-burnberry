@@ -1,6 +1,9 @@
 package noppe.minecraft.burnberry.defensegame;
 
 import noppe.minecraft.burnberry.entities.CustomPlayer;
+import noppe.minecraft.burnberry.helpers.M;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 public class DefensePlayerState {
     public CustomPlayer player;
@@ -9,8 +12,9 @@ public class DefensePlayerState {
 
     public DefensePlayerState(CustomPlayer player){
         this.player = player;
-        arrowCapacity = 7;
+        arrowCapacity = 12;
         arrowCount = arrowCapacity;
+        updateWeapon();
     }
 
     public boolean hasArrow(){
@@ -19,13 +23,21 @@ public class DefensePlayerState {
 
     public void useArrow(){
         if (hasArrow()){
-            arrowCount -= 1;
+            addArrows(-1);
         }
     }
 
     public int addArrows(int count){
-        int x = Math.min(count, arrowCapacity - arrowCount);
-        arrowCount += x;
-        return count - x;
+        int taken = Math.min(count, arrowCapacity - arrowCount);
+        arrowCount += taken;
+        updateWeapon();
+        return taken;
+    }
+
+    public void updateWeapon(){
+        ItemStack bow = player.playerWrapped.getInventory().getItem(0);
+        if (bow != null && bow.getType() == Material.BOW){
+            M.setItemName(bow, "Bow (" + arrowCount + '/' + arrowCapacity + ")");
+        }
     }
 }

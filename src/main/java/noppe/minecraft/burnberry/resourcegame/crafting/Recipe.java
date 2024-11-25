@@ -15,7 +15,7 @@ public abstract class Recipe extends Spendable {
         this.name = name;
     }
 
-    public abstract void onBuy(ResourceGame game, int amount);
+    public abstract void onBuy(ResourceGame game, int n);
 
     @Override
     public void onBuy(ResourceGame game) {

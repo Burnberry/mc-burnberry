@@ -4,7 +4,8 @@ public enum Res {
     WOOD("Wood"),
     STONE("Stone"),
     IRON("Iron"),
-    SOUL("SOULS");
+    SOUL("Souls"),
+    ARROWS("Arrows");
 
     private String stringValue;
     void Strings(final String s) { stringValue = s; }

@@ -16,8 +16,8 @@ public class ArrowRecipe extends Recipe{
     }
 
     @Override
-    public void onBuy(ResourceGame game, int amount) {
-        M.print("Buying " + amount + " arrows");
+    public void onBuy(ResourceGame game, int n) {
+        game.resources.get(Res.ARROWS).addAmount(n*amount);
     }
 
     @Override
@@ -40,5 +40,10 @@ public class ArrowRecipe extends Recipe{
     @Override
     public int capacityAvailable() {
         return 1;
+    }
+
+    @Override
+    public void updateAmount() {
+        amount = 4;
     }
 }

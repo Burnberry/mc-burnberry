@@ -12,6 +12,7 @@ public class ResourceGetter {
         resources.put(Res.WOOD, new WoodResource());
         resources.put(Res.IRON, new IronResource());
         resources.put(Res.SOUL, new SoulResource());
+        resources.put(Res.ARROWS, new ArrowResource());
         return resources;
     }
 }

@@ -11,10 +11,12 @@ import noppe.minecraft.burnberry.event.events.EventInventoryClick;
 import noppe.minecraft.burnberry.event.events.EventPlayerShootBow;
 import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.location.Loc;
+import noppe.minecraft.burnberry.resourcegame.GameResource;
 import noppe.minecraft.burnberry.resourcegame.ResourceGame;
 import noppe.minecraft.burnberry.resourcegame.resources.Res;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -93,8 +95,6 @@ public class DefenseGame extends CustomEventListener {
             CustomEntity ent = M.getWrapper(entity);
             if (ent instanceof CustomEnemy){
                 entity.remove();
-            } else if (ent instanceof CustomPlayer) {
-                playerStates.get(ent).addArrows(100);
             }
         }
 
@@ -167,5 +167,14 @@ public class DefenseGame extends CustomEventListener {
     public Location getRandomSpawn(){
         int i = ThreadLocalRandom.current().nextInt(0, spawnPoints.size());
         return spawnPoints.get(i);
+    }
+
+    public void onPlayerGetArrows(CustomPlayer player){
+        GameResource arrows = resourceGame.resources.get(Res.ARROWS);
+        int taken = playerStates.get(player).addArrows(arrows.amount);
+        arrows.addAmount(-taken);
+        if (taken > 0){
+            player.playerWrapped.playSound(player.playerWrapped, Sound.ITEM_WOLF_ARMOR_REPAIR, 1, 1);
+        }
     }
 }
