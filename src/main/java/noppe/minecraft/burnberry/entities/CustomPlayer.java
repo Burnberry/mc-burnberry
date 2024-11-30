@@ -2,10 +2,12 @@ package noppe.minecraft.burnberry.entities;
 
 import noppe.minecraft.burnberry.Lobby;
 import noppe.minecraft.burnberry.event.events.EventInventoryClick;
+import noppe.minecraft.burnberry.event.events.EventPlayerDeath;
 import noppe.minecraft.burnberry.event.events.EventPlayerInteract;
 import noppe.minecraft.burnberry.gui.RadialItemMenu;
 import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.item.Menu;
+import noppe.minecraft.burnberry.location.Loc;
 import noppe.minecraft.burnberry.view.View;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -13,6 +15,7 @@ import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -125,6 +128,13 @@ public class CustomPlayer extends CustomEntity{
             } else if (event.getClickedBlock() != null && event.getClickedBlock().getBlockData().getMaterial() == Material.FLETCHING_TABLE && lobby.game != null && !ev.offHand){
                 lobby.game.onPlayerGetArrows(ev.player);
             }
+        }
+    }
+
+    @Override
+    public void onPlayerDeath(PlayerDeathEvent event, EventPlayerDeath ev) {
+        if (lobby.game != null){
+            playerWrapped.setGameMode(GameMode.SPECTATOR);
         }
     }
 

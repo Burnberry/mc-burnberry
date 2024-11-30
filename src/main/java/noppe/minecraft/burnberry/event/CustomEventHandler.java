@@ -15,6 +15,7 @@ public class CustomEventHandler {
         this.arenaEventMappers = new ArrayList<>();
 
 //        this.arenaEventMappers.add(new MapperOnTest(this.arena));
+        this.arenaEventMappers.add(new BasicMapper(burnberry));
         this.arenaEventMappers.add(new DisableEvents(burnberry));
 //
 //        // player events
@@ -27,6 +28,7 @@ public class CustomEventHandler {
 //        // entity events
 //        this.arenaEventMappers.add(new MapperOnEntityTarget(burnberry));
         this.arenaEventMappers.add(new MapperOnEntityDeath(burnberry));
+        this.arenaEventMappers.add(new MapperOnPlayerDeath(burnberry));
         this.arenaEventMappers.add(new MapperOnEntityShootBow(burnberry));
 //        this.arenaEventMappers.add(new MapperOnEntityRemove(burnberry));
 //        this.arenaEventMappers.add(new MapperOnEntityDamage(burnberry));

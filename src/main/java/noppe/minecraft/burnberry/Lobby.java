@@ -95,6 +95,9 @@ public class Lobby extends CustomEventListener {
         game = null;
         for (CustomPlayer player: players){
             M.setInventory(player, Inv.lobby);
+            if (player.playerWrapped.getGameMode() == GameMode.SPECTATOR){
+                player.playerWrapped.setGameMode(GameMode.ADVENTURE);
+            }
         }
     }
 }

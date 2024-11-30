@@ -23,6 +23,8 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
@@ -49,6 +51,9 @@ public class DefenseGame extends CustomEventListener {
 
     public int waveDelay = -100;
     public int waveRate = 1;
+    public int baseHealth = 5;
+    public int healDelay = 0;
+    public int healOffset = 20;
 
     public DefenseGame(Lobby lobby){
         this.lobby = lobby;
@@ -86,22 +91,43 @@ public class DefenseGame extends CustomEventListener {
     }
 
     public void onTick(){
+        healDelay -= 1;
+
         waveDelay += waveRate;
         if (waveDelay >= 0){
             spawnMonsters();
         }
         Location l = anchor.getLocation();
-        for (Entity entity: M.getWorld().getNearbyEntities(new BoundingBox(l.getX()-0.5, l.getY()-5, l.getZ()-5, l.getX()+0.5, l.getY()+5, l.getZ()+5))){
+        for (Entity entity: M.getWorld().getNearbyEntities(new BoundingBox(l.getX()-5, l.getY()-5, l.getZ()-5, l.getX()+0.5, l.getY()+10, l.getZ()+10))){
             CustomEntity ent = M.getWrapper(entity);
             if (ent instanceof CustomEnemy){
                 entity.remove();
+                onBaseDamaged(1);
+            } else if (ent instanceof CustomPlayer && healDelay <= 0) {
+                ((CustomPlayer) ent).heal(1);
             }
+        }
+        if (healDelay <= 0){
+            healDelay = healOffset;
         }
 
         alpha += Math.PI/100;
         Transformation transform = new Transformation(new Vector3f(0, 0, 0), new AxisAngle4f((float)alpha, 0f, 1f, 0f), new Vector3f(0.5f, .5f, 0.5f), new AxisAngle4f(0f, 0f, 0f, 0f));
         anchorDisplay.setTransformation(transform);
 
+    }
+
+
+    public void onBaseDamaged(int damage){
+        baseHealth -= damage;
+        if (baseHealth <= 0){
+            onGameLose();
+        }
+    }
+
+    public void onGameLose(){
+        M.print("LOST: base destroyed");
+        lobby.stopGame();
     }
 
     @Override
