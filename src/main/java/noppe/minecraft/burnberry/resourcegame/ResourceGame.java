@@ -4,7 +4,6 @@ import noppe.minecraft.burnberry.defensegame.DefenseGame;
 import noppe.minecraft.burnberry.entities.CustomPlayer;
 import noppe.minecraft.burnberry.event.CustomEventListener;
 import noppe.minecraft.burnberry.event.events.EventInventoryClick;
-import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.resourcegame.crafting.Recipe;
 import noppe.minecraft.burnberry.resourcegame.crafting.Recipes;
 import noppe.minecraft.burnberry.resourcegame.minigames.ForageGame;

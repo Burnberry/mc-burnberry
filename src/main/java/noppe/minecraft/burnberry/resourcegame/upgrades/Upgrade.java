@@ -6,8 +6,8 @@ import noppe.minecraft.burnberry.resourcegame.util.Spendable;
 public abstract class Upgrade extends Spendable {
     public int level=0;
 
-    public void buy(ResourceGame game){
-        super.buy(game);
+    public void _buy(ResourceGame game){
+        super._buy(game);
         level += 1;
         updateCosts();
     }

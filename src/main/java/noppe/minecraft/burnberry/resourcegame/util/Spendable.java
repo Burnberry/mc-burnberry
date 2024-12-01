@@ -39,7 +39,15 @@ public abstract class Spendable {
         return amount;
     }
 
-    public void buy(ResourceGame game){
+    public boolean buy(ResourceGame game){
+        if (canBuy(game)){
+            _buy(game);
+            return true;
+        }
+        return false;
+    }
+
+    public void _buy(ResourceGame game){
         for (CostPair pair: costs){
             game.resources.get(pair.first).addAmount(-pair.second);
         }
