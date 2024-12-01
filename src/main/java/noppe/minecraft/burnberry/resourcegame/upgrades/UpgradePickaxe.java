@@ -48,6 +48,23 @@ public class UpgradePickaxe extends Upgrade{
     }
 
     @Override
+    public String getName() {
+        if (level == 0){
+            return "Wooden Pickaxe";
+        }
+        else if (level == 1){
+            return "Stone Pickaxe";
+        }
+        else if (level == 2){
+            return "Iron Pickaxe";
+        }
+        else if (level == 3){
+            return "Diamond Pickaxe";
+        }
+        return null;
+    }
+
+    @Override
     public boolean isAvailable() {
         return level < 4;
     }

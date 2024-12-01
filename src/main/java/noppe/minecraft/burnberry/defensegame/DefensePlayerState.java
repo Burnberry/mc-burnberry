@@ -6,15 +6,18 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class DefensePlayerState {
+    public DefenseGame game;
     public CustomPlayer player;
     public int arrowCount;
-    public int arrowCapacity;
 
-    public DefensePlayerState(CustomPlayer player){
+    public DefensePlayerState(DefenseGame game, CustomPlayer player){
+        this.game = game;
         this.player = player;
-        arrowCapacity = 12;
-        arrowCount = arrowCapacity;
         updateWeapon();
+    }
+
+    public int getArrowCapacity() {
+        return game.resourceGame.upgrades.arrowCapacity;
     }
 
     public boolean hasArrow(){
@@ -28,7 +31,7 @@ public class DefensePlayerState {
     }
 
     public int addArrows(int count){
-        int taken = Math.min(count, arrowCapacity - arrowCount);
+        int taken = Math.min(count, getArrowCapacity() - arrowCount);
         arrowCount += taken;
         updateWeapon();
         return taken;
@@ -37,7 +40,7 @@ public class DefensePlayerState {
     public void updateWeapon(){
         ItemStack bow = player.playerWrapped.getInventory().getItem(0);
         if (bow != null && bow.getType() == Material.BOW){
-            M.setItemName(bow, "Bow (" + arrowCount + '/' + arrowCapacity + ")");
+            M.setItemName(bow, "Bow (" + arrowCount + '/' + getArrowCapacity() + ")");
         }
     }
 }

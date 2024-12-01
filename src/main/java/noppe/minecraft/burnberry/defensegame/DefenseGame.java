@@ -71,7 +71,7 @@ public class DefenseGame extends CustomEventListener {
     }
 
     public void onNewPlayer(CustomPlayer player){
-        playerStates.put(player, new DefensePlayerState(player));
+        playerStates.put(player, new DefensePlayerState(this, player));
     }
 
     private void setSpawnPoints() {
@@ -91,6 +91,8 @@ public class DefenseGame extends CustomEventListener {
     }
 
     public void onTick(){
+        resourceGame.onTick();
+
         healDelay -= 1;
 
         waveDelay += waveRate;
@@ -141,7 +143,7 @@ public class DefenseGame extends CustomEventListener {
         } else{
             event.setCancelled(true);
         }
-        M.print("Arrows: " + playerState.arrowCount + '/' + playerState.arrowCapacity);
+        M.print("Arrows: " + playerState.arrowCount + '/' + playerState.getArrowCapacity());
     }
 
     @Override

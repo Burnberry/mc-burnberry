@@ -33,6 +33,11 @@ public class ArrowRecipe extends Recipe{
     }
 
     @Override
+    public String getName() {
+        return "Arrows";
+    }
+
+    @Override
     public boolean isAvailable() {
         return true;
     }

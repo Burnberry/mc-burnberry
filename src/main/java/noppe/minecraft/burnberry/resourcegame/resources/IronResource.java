@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class IronResource extends GameResource {
-    public IronResource() {
-        super(0, new ItemStack(Material.RAW_IRON), "Iron");
+    public IronResource(int amount) {
+        super(amount, new ItemStack(Material.RAW_IRON), "Iron");
     }
 }

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Spendable {
+    public static ResourceGame game;
+
     public List<CostPair> costs = new ArrayList<>();
 
     public Spendable(){
@@ -40,7 +42,7 @@ public abstract class Spendable {
     }
 
     public boolean buy(ResourceGame game){
-        if (canBuy(game)){
+        if (canBuy(game) && isAvailable()){
             _buy(game);
             return true;
         }
@@ -76,5 +78,6 @@ public abstract class Spendable {
     public abstract void onBuy(ResourceGame game);
     public abstract void updateCosts();
     protected abstract ItemStack _getItem();
+    public abstract String getName();
     public abstract boolean isAvailable();
 }

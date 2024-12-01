@@ -8,7 +8,11 @@ public abstract class Upgrade extends Spendable {
 
     public void _buy(ResourceGame game){
         super._buy(game);
-        level += 1;
+        onBuyUpdateLevel();
         updateCosts();
+    }
+
+    public void onBuyUpdateLevel(){
+        level += 1;
     }
 }

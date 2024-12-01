@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class ArrowResource extends GameResource {
-    public ArrowResource() {
-        super(0, new ItemStack(Material.ARROW), "Arrows");
+    public ArrowResource(int amount) {
+        super(amount, new ItemStack(Material.ARROW), "Arrows");
     }
 }
