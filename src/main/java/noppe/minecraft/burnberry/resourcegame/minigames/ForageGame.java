@@ -25,7 +25,6 @@ public class ForageGame extends MiniGame {
         nodes = new ArrayList<>();
         tree = new TreeNode(this, 7);
 
-        nodes.add(new WoodNode(this, 49, tree));
         nodes.add(new WoodNode(this, 40, tree));
         nodes.add(new WoodNode(this, 31, tree));
         nodes.add(new WoodNode(this, 22, tree));

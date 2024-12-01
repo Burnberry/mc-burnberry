@@ -27,7 +27,7 @@ public class TreeNode{
 
     public void onHit(ResourceNode node, CustomPlayer player){
         int damage = Math.min(health, game.game.upgrades.pickaxePower);
-        game.game.resources.get(Res.WOOD).addAmount(damage);
+        game.addResource(Res.WOOD, damage);
         health -= damage;
         node.playSound(player, Sound.BLOCK_WOOD_BREAK);
         if (isFinished()){

@@ -56,7 +56,7 @@ public class ResourceGame extends CustomEventListener {
         Spendable.game = this;
 
         upgrades = new Upgrades();
-        resources = ResourceGetter.getResources();
+        resources = ResourceGetter.getDefaultResources();
         forageGames = new Hashtable<>();
         miningGames = new Hashtable<>();
     }
@@ -189,12 +189,18 @@ public class ResourceGame extends CustomEventListener {
         if (forageGames.get(player) == null){
             forageGames.put(player, new ForageGame(this, player));
         }
+        if (forageGames.get(player).isFinished()){
+            forageGames.get(player).restart();
+        }
         reload(forageGames.get(player).getInventory(), player);
     }
 
     public void viewMines(CustomPlayer player){
         if (miningGames.get(player) == null){
             miningGames.put(player, new MiningGame(this, player));
+        }
+        if (miningGames.get(player).isFinished()){
+            miningGames.get(player).restart();
         }
         reload(miningGames.get(player).getInventory(), player);
     }

@@ -25,7 +25,7 @@ public class MiningGame extends MiniGame {
     public void setNodes() {
         nodes = new ArrayList<>();
         int x = ThreadLocalRandom.current().nextInt(1, 8);
-        int y = ThreadLocalRandom.current().nextInt(1, 5);
+        int y = ThreadLocalRandom.current().nextInt(1, 4);
         int p = ThreadLocalRandom.current().nextInt(0, 4);
         int slot = 9*y + x;
         if (p == 0){

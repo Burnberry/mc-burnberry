@@ -20,7 +20,7 @@ public class IronNode extends ResourceNode {
         setItem(getItem());
         playSound(player, Sound.BLOCK_STONE_BREAK);
         if (isFinished()){
-            game.game.resources.get(Res.IRON).addAmount(1);
+            game.addResource(Res.IRON, 1);
             remove();
         }
     }

@@ -8,6 +8,7 @@ public class Menu {
     public static ItemStack black = Menu.createBlack();
     public static ItemStack startGame = Menu.createStartGame();
     public static ItemStack resourceMenu = Menu.createResourceMenu();
+    public static ItemStack resourceMiniGameRestart = Menu.createResourceMiniGameRestartMenu();
     public static ItemStack controlLeft = Menu.createControlLeft();
     public static ItemStack controlRight = Menu.createControlRight();
 
@@ -31,6 +32,13 @@ public class Menu {
         ItemStack itemStack = new ItemStack(Material.RED_BANNER);
         M.setItemName(itemStack, "Menu");
         M.setItemNBTName(itemStack, "resourceMenu");
+        return itemStack;
+    }
+
+    static ItemStack createResourceMiniGameRestartMenu(){
+        ItemStack itemStack = new ItemStack(Material.STONE_PICKAXE);
+        M.setItemName(itemStack, "Restart");
+        M.setItemNBTName(itemStack, "resourceMiniGameRestart");
         return itemStack;
     }
 

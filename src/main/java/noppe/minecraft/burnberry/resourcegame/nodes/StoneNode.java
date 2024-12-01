@@ -20,7 +20,7 @@ public class StoneNode extends ResourceNode {
     public void onHit(CustomPlayer player) {
         int damage = Math.min(health, game.game.upgrades.pickaxePower);
         health -= damage;
-        game.game.resources.get(Res.STONE).addAmount(damage);
+        game.addResource(Res.STONE, damage);
         setItem(getItem());
         playSound(player, Sound.BLOCK_STONE_BREAK);
         if (isFinished()){
