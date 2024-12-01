@@ -1,4 +1,6 @@
 # mc-burnberry
+Minecraft plugin for a castle defense game inspired by Dwarves vs Zombies
+
 ### plan
 
 - Defense
