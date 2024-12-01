@@ -17,6 +17,7 @@ public class Menu {
     public static ItemStack controlMines = createControlMines();
 
     public static ItemStack controlSpawnMonster = createControlSpawnMonster();
+    public static ItemStack controlSkipWave = createControlSkipWave();
 
     public static ItemStack  controlGamemode = createControlGamemode();
     public static ItemStack  controlRadialMenu = createControlRadialMenu();
@@ -88,6 +89,13 @@ public class Menu {
         ItemStack itemStack = new ItemStack(Material.BONE);
         M.setItemName(itemStack, "Spawn Monster");
         M.setItemNBTName(itemStack, "controlSpawnMonster");
+        return itemStack;
+    }
+
+    public static ItemStack createControlSkipWave() {
+        ItemStack itemStack = new ItemStack(Material.SKELETON_SKULL);
+        M.setItemName(itemStack, "Skip Wave");
+        M.setItemNBTName(itemStack, "controlSkipWave");
         return itemStack;
     }
 

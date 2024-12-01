@@ -10,9 +10,11 @@ import org.bukkit.entity.Monster;
 public class DefenseEnemy extends CustomEnemy {
     public DefenseGame game;
     public int souls = 1;
+    public int miasma;
 
-    public DefenseEnemy(DefenseGame game, Mob monster) {
+    public DefenseEnemy(DefenseGame game, Mob monster, int miasma) {
         super(game, monster);
         this.game = game;
+        this.miasma = miasma;
     }
 }

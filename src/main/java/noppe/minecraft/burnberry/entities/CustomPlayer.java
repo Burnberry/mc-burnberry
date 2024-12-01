@@ -7,7 +7,6 @@ import noppe.minecraft.burnberry.event.events.EventPlayerInteract;
 import noppe.minecraft.burnberry.gui.RadialItemMenu;
 import noppe.minecraft.burnberry.helpers.M;
 import noppe.minecraft.burnberry.item.Menu;
-import noppe.minecraft.burnberry.location.Loc;
 import noppe.minecraft.burnberry.view.View;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -115,8 +114,10 @@ public class CustomPlayer extends CustomEntity{
             } else if (M.matches(Menu.controlGamemode, ev.item)){
                 switchGameMode();
             } else if (M.matches(Menu.controlSpawnMonster, ev.item)){
-                lobby.game.spawnZombie(playerWrapped.getLocation());
-//                lobby.game.spawnZombie();
+                lobby.game.spawnMonsterTest(playerWrapped.getLocation());
+//                lobby.game.spawnMonsterTest();
+            } else if (M.matches(Menu.controlSkipWave, ev.item) && lobby.game != null) {
+                lobby.game.wave.end();
             } else if (M.matches(Menu.controlRadialMenu, ev.item)){
                 List<ItemStack> items = new ArrayList<>();
                 items.add(new ItemStack(Material.GOLDEN_SWORD));

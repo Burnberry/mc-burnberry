@@ -24,6 +24,7 @@ public class Inv {
         inventory.setItem(27, new ItemStack(Material.ARROW));
 
         inventory.setItem(2, Menu.controlSpawnMonster);
+        inventory.setItem(3, Menu.controlSkipWave);
         
         inventory.setItem(8, Menu.resourceMenu);
         return inventory;

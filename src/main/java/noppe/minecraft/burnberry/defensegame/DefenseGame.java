@@ -2,6 +2,9 @@ package noppe.minecraft.burnberry.defensegame;
 
 import noppe.minecraft.burnberry.Lobby;
 import noppe.minecraft.burnberry.defensegame.enemies.*;
+import noppe.minecraft.burnberry.defensegame.wave.PeaceWave;
+import noppe.minecraft.burnberry.defensegame.wave.TestWave;
+import noppe.minecraft.burnberry.defensegame.wave.Wave;
 import noppe.minecraft.burnberry.entities.CustomEntity;
 import noppe.minecraft.burnberry.entities.CustomPlayer;
 import noppe.minecraft.burnberry.entities.enemies.CustomEnemy;
@@ -23,8 +26,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
@@ -49,8 +50,8 @@ public class DefenseGame extends CustomEventListener {
     public double alpha=0;
     public List<Location> spawnPoints;
 
-    public int waveDelay = -100;
-    public int waveRate = 1;
+    public Wave wave;
+
     public int baseHealth = 5;
     public int healDelay = 0;
     public int healOffset = 20;
@@ -68,6 +69,8 @@ public class DefenseGame extends CustomEventListener {
         setSpawnPoints();
         monsters = new ArrayList<>();
         spawnAnchor();
+
+        nextWave();
     }
 
     public void onNewPlayer(CustomPlayer player){
@@ -92,13 +95,10 @@ public class DefenseGame extends CustomEventListener {
 
     public void onTick(){
         resourceGame.onTick();
+        wave.onTick();
 
         healDelay -= 1;
 
-        waveDelay += waveRate;
-        if (waveDelay >= 0){
-            spawnMonsters();
-        }
         Location l = anchor.getLocation();
         for (Entity entity: M.getWorld().getNearbyEntities(new BoundingBox(l.getX()-5, l.getY()-5, l.getZ()-5, l.getX()+0.5, l.getY()+10, l.getZ()+10))){
             CustomEntity ent = M.getWrapper(entity);
@@ -116,9 +116,19 @@ public class DefenseGame extends CustomEventListener {
         alpha += Math.PI/100;
         Transformation transform = new Transformation(new Vector3f(0, 0, 0), new AxisAngle4f((float)alpha, 0f, 1f, 0f), new Vector3f(0.5f, .5f, 0.5f), new AxisAngle4f(0f, 0f, 0f, 0f));
         anchorDisplay.setTransformation(transform);
-
     }
 
+    public void onWaveEnd(){
+        nextWave();
+    }
+
+    public void nextWave(){
+        if (wave instanceof PeaceWave){
+            wave = new TestWave(this);
+        } else {
+            wave = new PeaceWave(this);
+        }
+    }
 
     public void onBaseDamaged(int damage){
         baseHealth -= damage;
@@ -155,22 +165,14 @@ public class DefenseGame extends CustomEventListener {
         resourceGame.viewMainMenu(player);
     }
 
-    public void spawnMonsters(){
-        int n = ThreadLocalRandom.current().nextInt(2, 6);
-        for (int i=0; i<n; i++){
-            spawnZombie();
-            waveDelay -= 50;
-        }
-    }
-
-    public void spawnZombie(Location location){
+    public void spawnMonsterTest(Location location){
         CustomEnemy enemy = new DefenseWeakZombie(this, location);
         enemy.setTarget(anchor);
         monsters.add(enemy);
     }
 
-    public void spawnZombie(){
-        spawnZombie(getRandomSpawn());
+    public void spawnMonsterTest(){
+        spawnMonsterTest(getRandomSpawn());
     }
 
     public void spawnAnchor(){

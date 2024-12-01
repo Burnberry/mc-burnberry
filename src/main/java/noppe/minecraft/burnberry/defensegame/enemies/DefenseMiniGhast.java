@@ -9,7 +9,7 @@ import org.bukkit.entity.Mob;
 
 public class DefenseMiniGhast extends DefenseEnemy{
     public DefenseMiniGhast(DefenseGame game, Location location) {
-        super(game, (Mob) M.spawnEntity(game, location, Ghast.class));
+        super(game, (Mob) M.spawnEntity(game, location, Ghast.class), 1);
         getMob().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(1);
         getMob().getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.1);
         getMob().setSilent(true);
