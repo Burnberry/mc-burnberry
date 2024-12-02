@@ -5,6 +5,7 @@ import noppe.minecraft.burnberry.entities.CustomEntity;
 import noppe.minecraft.burnberry.entities.CustomPlayer;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
@@ -144,6 +145,16 @@ public class M {
         Entity entity = M.getWorld().spawn(location, clazz, false, null);
         M.setMetaData(entity, "origin", origin);
         return entity;
+    }
+
+    public static void playWorldSound(Sound sound){
+        playWorldSound(sound, 1);
+    }
+
+    public static void playWorldSound(Sound sound, float volume){
+        for (Player player: getWorld().getPlayers()){
+            player.playSound(player, sound, volume, 1);
+        }
     }
 
     public static World getWorld(){

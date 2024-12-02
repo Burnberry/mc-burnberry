@@ -12,7 +12,7 @@ public class ResourceGetter {
         resources.get(Res.WOOD).addAmount(100);
         resources.get(Res.IRON).addAmount(10);
         resources.get(Res.SOUL).addAmount(100);
-        resources.get(Res.ARROWS).addAmount(24);
+        resources.get(Res.ARROWS).addAmount(2400);
         return resources;
     }
 

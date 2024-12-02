@@ -44,8 +44,9 @@ public class DefenseGame extends CustomEventListener {
 
     public Dictionary<CustomPlayer, DefensePlayerState> playerStates;
 
-    public List<CustomEnemy> monsters;
+    public List<DefenseEnemy> monsters;
     public LivingEntity anchor;
+    public LivingEntity anchor2;
     public ItemDisplay anchorDisplay;
     public double alpha=0;
     public List<Location> spawnPoints;
@@ -87,6 +88,7 @@ public class DefenseGame extends CustomEventListener {
 
     public void clean(){
         anchor.remove();
+        anchor2.remove();
         anchorDisplay.remove();
         for (CustomEnemy enemy: monsters){
             enemy.remove();
@@ -116,6 +118,10 @@ public class DefenseGame extends CustomEventListener {
         alpha += Math.PI/100;
         Transformation transform = new Transformation(new Vector3f(0, 0, 0), new AxisAngle4f((float)alpha, 0f, 1f, 0f), new Vector3f(0.5f, .5f, 0.5f), new AxisAngle4f(0f, 0f, 0f, 0f));
         anchorDisplay.setTransformation(transform);
+
+        for (DefenseEnemy enemy: monsters){
+            enemy.onTick();
+        }
     }
 
     public void onWaveEnd(){
@@ -166,7 +172,7 @@ public class DefenseGame extends CustomEventListener {
     }
 
     public void spawnMonsterTest(Location location){
-        CustomEnemy enemy = new DefenseWeakZombie(this, location);
+        DefenseEnemy enemy = new DefenseGiantGolem(this, location);
         enemy.setTarget(anchor);
         monsters.add(enemy);
     }
@@ -181,6 +187,12 @@ public class DefenseGame extends CustomEventListener {
         anchor.setSilent(true);
         anchor.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.1);
         anchor.setRemoveWhenFarAway(false);
+
+        anchor2 = (LivingEntity) M.spawnEntity(this, Loc.anchor2.setDirection(new Vector(-1, 0, 0)), Vex.class);
+        anchor2.setAI(false);
+        anchor2.setSilent(true);
+        anchor2.getAttribute(Attribute.GENERIC_SCALE).setBaseValue(0.1);
+        anchor2.setRemoveWhenFarAway(false);
 
         anchorDisplay = (ItemDisplay) M.spawnEntity(anchor, anchor.getLocation().clone().add(0, 1, 0), ItemDisplay.class);
         anchorDisplay.setItemStack(new ItemStack(Material.GOLDEN_SWORD));

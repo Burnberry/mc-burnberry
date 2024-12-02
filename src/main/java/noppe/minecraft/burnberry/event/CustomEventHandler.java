@@ -26,12 +26,12 @@ public class CustomEventHandler {
         this.arenaEventMappers.add(new MapperOnInventoryClick(burnberry));
 //
 //        // entity events
-//        this.arenaEventMappers.add(new MapperOnEntityTarget(burnberry));
+        this.arenaEventMappers.add(new MapperOnEntityTarget(burnberry));
         this.arenaEventMappers.add(new MapperOnEntityDeath(burnberry));
         this.arenaEventMappers.add(new MapperOnPlayerDeath(burnberry));
         this.arenaEventMappers.add(new MapperOnEntityShootBow(burnberry));
 //        this.arenaEventMappers.add(new MapperOnEntityRemove(burnberry));
-//        this.arenaEventMappers.add(new MapperOnEntityDamage(burnberry));
+        this.arenaEventMappers.add(new MapperOnEntityDamage(burnberry));
 
         // extras
         arenaEventMappers.add(new MapperOnProjectileHit(burnberry));

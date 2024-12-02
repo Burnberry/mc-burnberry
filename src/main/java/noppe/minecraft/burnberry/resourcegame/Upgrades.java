@@ -17,7 +17,7 @@ public class Upgrades {
 
     public Research activeResearch;
 
-    public int arrowCapacity = 12;
+    public int arrowCapacity = 1200;
     public int pickaxePower = 1;
 
     public Upgrades(){
