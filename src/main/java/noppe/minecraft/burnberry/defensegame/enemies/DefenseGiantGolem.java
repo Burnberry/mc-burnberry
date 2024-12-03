@@ -15,7 +15,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class DefenseGiantGolem extends DefenseEnemy{
     public double scale = 4;
-    public double healthScale = 1;//6;
+    public double healthScale = 6;
     public double baseHealth = 5;
     public boolean defenseMode = false;
 
@@ -85,7 +85,7 @@ public class DefenseGiantGolem extends DefenseEnemy{
             damage -= getGolem().getHealth();
             scale = 0.9*scale - 0.2;
             setGolemSize();
-            getGolem().addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 8*20, 4));
+            getGolem().addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 3*20, 4));
             return golemBreak(damage, false);
         }
         return damage;

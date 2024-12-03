@@ -36,9 +36,10 @@ public class DefenseEnemy extends CustomEnemy {
     @Override
     public void onEntityTarget(EntityTargetEvent event, EventEntityTarget ev) {
         super.onEntityTarget(event, ev);
-        if (ev.target instanceof DefenseEnemy){
-            event.setCancelled(true);
-        }
+        event.setTarget(game.anchor);
+//        if (ev.target instanceof DefenseEnemy){
+//            event.setCancelled(true);
+//        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package noppe.minecraft.burnberry.defensegame;
 
 import noppe.minecraft.burnberry.Lobby;
 import noppe.minecraft.burnberry.defensegame.enemies.*;
+import noppe.minecraft.burnberry.defensegame.wave.BossWave;
 import noppe.minecraft.burnberry.defensegame.wave.PeaceWave;
 import noppe.minecraft.burnberry.defensegame.wave.TestWave;
 import noppe.minecraft.burnberry.defensegame.wave.Wave;
@@ -21,6 +22,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
@@ -72,6 +74,7 @@ public class DefenseGame extends CustomEventListener {
         spawnAnchor();
 
         nextWave();
+        setWall(true);
     }
 
     public void onNewPlayer(CustomPlayer player){
@@ -82,8 +85,18 @@ public class DefenseGame extends CustomEventListener {
         spawnPoints = new ArrayList<>();
         spawnPoints.add(new Location(M.getWorld(), 50.5, 100, -7.5));
         spawnPoints.add(new Location(M.getWorld(), 50.5, 100, 7.5));
-        spawnPoints.add(new Location(M.getWorld(), 55.5, 100, -2.5));
-        spawnPoints.add(new Location(M.getWorld(), 55.5, 100, 3.5));
+//        spawnPoints.add(new Location(M.getWorld(), 55.5, 100, -2.5));
+//        spawnPoints.add(new Location(M.getWorld(), 55.5, 100, 3.5));
+    }
+
+    public void setSpawnPoints2() {
+        spawnPoints = new ArrayList<>();
+        spawnPoints.add(new Location(M.getWorld(), 50.5, 100, -7.5));
+        spawnPoints.add(new Location(M.getWorld(), 50.5, 100, 7.5));
+        spawnPoints.add(new Location(M.getWorld(), 76.5, 100, -4));
+        spawnPoints.add(new Location(M.getWorld(), 76.5, 100, 4));
+        spawnPoints.add(new Location(M.getWorld(), 80.5, 100, -4));
+        spawnPoints.add(new Location(M.getWorld(), 80.5, 100, 4));
     }
 
     public void clean(){
@@ -93,6 +106,7 @@ public class DefenseGame extends CustomEventListener {
         for (CustomEnemy enemy: monsters){
             enemy.remove();
         }
+        setWall(true);
     }
 
     public void onTick(){
@@ -129,10 +143,10 @@ public class DefenseGame extends CustomEventListener {
     }
 
     public void nextWave(){
-        if (wave instanceof PeaceWave){
-            wave = new TestWave(this);
+        if (wave instanceof TestWave){
+            wave = new BossWave(this);
         } else {
-            wave = new PeaceWave(this);
+            wave = new TestWave(this);
         }
     }
 
@@ -159,7 +173,7 @@ public class DefenseGame extends CustomEventListener {
         } else{
             event.setCancelled(true);
         }
-        M.print("Arrows: " + playerState.arrowCount + '/' + playerState.getArrowCapacity());
+//        M.print("Arrows: " + playerState.arrowCount + '/' + playerState.getArrowCapacity());
     }
 
     @Override
@@ -217,6 +231,20 @@ public class DefenseGame extends CustomEventListener {
         arrows.addAmount(-taken);
         if (taken > 0){
             player.playerWrapped.playSound(player.playerWrapped, Sound.ITEM_WOLF_ARMOR_REPAIR, 1, 1);
+        }
+    }
+
+    public void setWall(boolean clean){
+        Material mat = Material.AIR;
+        if (clean){
+            mat = Material.DEEPSLATE_BRICKS;
+        }
+        Block block = Loc.wall.getBlock();
+        for (int z=0; z<=3; z++){
+            for (int y=0; y<=13; y++){
+                block.getRelative(0, y, z).setType(mat);
+                block.getRelative(0, y, -z).setType(mat);
+            }
         }
     }
 }

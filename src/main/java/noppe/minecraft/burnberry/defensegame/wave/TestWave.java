@@ -18,8 +18,7 @@ public class TestWave extends Wave {
     @Override
     protected void _updateStage() {
         if (stage == 1){
-            stageTimeLeft = 20*30;
-            M.print("Zombies incoming " + stage);
+            stageTimeLeft = 20*25;
         }
         else {
             end();

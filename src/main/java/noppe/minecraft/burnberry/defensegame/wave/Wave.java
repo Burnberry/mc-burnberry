@@ -41,6 +41,10 @@ public abstract class Wave {
 
     public void spawnEnemy(){
         DefenseEnemy enemy = _spawnEnemy();
+        spawnEnemy(enemy);
+    }
+
+    public void spawnEnemy(DefenseEnemy enemy){
         enemy.setTarget(game.anchor);
         game.monsters.add(enemy);
         spawnDelay += enemy.miasma;
