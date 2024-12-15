@@ -11,12 +11,14 @@ import org.bukkit.inventory.ItemStack;
 public class IronNode extends ResourceNode {
     public IronNode(MiniGame game, int slot, int health) {
         super(game, slot, health);
+        DamagePerResource = 3;
+        damageRes = Res.STONE;
+        rewardRes = Res.IRON;
     }
 
     @Override
     public void onHit(CustomPlayer player) {
-        int damage = Math.min(health, game.game.upgrades.pickaxePower);
-        health -= damage;
+        onDamage(game.game.upgrades.pickaxePower);
         setItem(getItem());
         playSound(player, Sound.BLOCK_STONE_BREAK);
         if (isFinished()){
