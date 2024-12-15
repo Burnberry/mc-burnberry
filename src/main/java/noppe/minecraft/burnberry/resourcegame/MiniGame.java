@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
 
@@ -34,7 +35,15 @@ public abstract class MiniGame {
         resourcesEarned = ResourceGetter.getResources();
     }
 
-    public abstract void setNodes();
+    public void setNodes(){
+        nodes = new ArrayList<>();
+        for (int i=0; i<9*5; i++){
+            nodes.add(null);
+        }
+        _setNodes();
+    }
+
+    public abstract void _setNodes();
 
     public void onSlotClicked(int slot){
         ItemStack item = inventory.getItem(slot);

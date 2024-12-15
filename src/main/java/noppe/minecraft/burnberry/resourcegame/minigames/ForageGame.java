@@ -21,7 +21,7 @@ public class ForageGame extends MiniGame {
     }
 
     @Override
-    public void setNodes() {
+    public void _setNodes() {
         nodes = new ArrayList<>();
         tree = new TreeNode(this, 7);
 

@@ -143,10 +143,15 @@ public class DefenseGame extends CustomEventListener {
     }
 
     public void nextWave(){
+//        if (wave instanceof TestWave){
+//            wave = new BossWave(this);
+//        } else {
+//            wave = new TestWave(this);
+//        }
         if (wave instanceof TestWave){
-            wave = new BossWave(this);
+            wave = new PeaceWave(this);
         } else {
-            wave = new TestWave(this);
+            wave = new PeaceWave(this);
         }
     }
 
